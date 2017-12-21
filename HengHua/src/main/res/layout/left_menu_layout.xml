@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_menu_root_ro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/left_menu_bg">
+
+    <!--头部布局-->
+    <LinearLayout
+        android:id="@+id/left_menu_top_lo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/lfm_top_height"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/leftmenu_bg" />
+
+
+    </LinearLayout>
+
+    <!--底部功能条-->
+    <include
+        android:id="@+id/left_menu_bottom_lo"
+        layout="@layout/left_menu_bottom" />
+
+    <!--中间列表-->
+    <!--listView.setCacheColorHint(0); 或者Android:cacheColorHint="#000000" 去除listview的拖动背景色-->
+    <!--android:listSelector="@drawable/item_slt"-->
+    <ListView
+        android:id="@+id/left_menu_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/left_menu_bottom_lo"
+        android:layout_below="@id/left_menu_top_lo"
+        android:layout_marginBottom="@dimen/lfm_list_margin_bottom"
+        android:layout_marginTop="@dimen/lfm_list_margin_top"
+        android:cacheColorHint="@color/transparency"
+        android:divider="@null"
+        android:listSelector="@color/transparency"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="none"
+        android:textColor="@color/left_menu_list_text" />
+</RelativeLayout>

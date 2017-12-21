@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_menu_item_ro"
+    android:layout_width="wrap_content"
+    android:background="@drawable/item_slt"
+    android:layout_height="wrap_content">
+
+    <!--item左侧图标-->
+    <ImageView
+        android:id="@+id/item_iv"
+        android:layout_width="@dimen/lfm_ico_size"
+        android:layout_height="@dimen/lfm_ico_size"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/lfm_ico_margin_bottom"
+        android:layout_marginLeft="@dimen/lfm_ico_margin_left"
+        android:layout_marginTop="@dimen/lfm_ico_margin_top"></ImageView>
+
+
+    <!--item中间文字-->
+    <TextView
+        android:id="@+id/item_tv"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/lfm_text_margin_left"
+        android:textColor="@color/left_menu_list_text"
+        android:textSize="16sp"
+        android:layout_toRightOf="@+id/item_iv" />
+
+    <!--item右侧按钮-->
+    <ImageView
+        android:id="@+id/item_ib"
+        android:layout_width="@dimen/lfm_btn_width"
+        android:layout_height="@dimen/lfm_btn_height"
+        android:layout_centerVertical="true"
+        android:src="@drawable/go"
+        android:visibility="gone"
+        android:layout_toRightOf="@id/item_tv"/>
+
+</RelativeLayout>

@@ -1,0 +1,123 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="app_text_0">10sp</dimen>
+    <dimen name="app_text_1">11sp</dimen>
+    <dimen name="app_text_2">12sp</dimen>
+    <dimen name="app_text_3">13sp</dimen>
+    <dimen name="app_text_4">14sp</dimen>
+    <dimen name="app_text_5">15sp</dimen>
+    <dimen name="app_text_6">16sp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="shadow_width">15dp</dimen>
+
+    <dimen name="list_padding">5dp</dimen>
+
+    <dimen name="nav_img_height">25dp</dimen>
+    <dimen name="nav_text_height">15dp</dimen>
+    <dimen name="nav_text_size">10sp</dimen>
+    <dimen name="nav_tab_padding">5dp</dimen>
+    <dimen name="nav_tab_width">60dp</dimen>
+    <dimen name="nav_bar_height">51dp</dimen>
+    <dimen name="nav_bar_divider_width">1dp</dimen>
+
+    <!--左侧菜单布局-->
+    <dimen name="lfm_top_height">240dp</dimen>
+
+    <dimen name="lfm_list_margin_bottom">30dp</dimen>
+    <dimen name="lfm_list_margin_top">35dp</dimen>
+
+    <!--左侧菜单项目图标-->
+    <dimen name="lfm_ico_size">23dp</dimen>
+    <dimen name="lfm_ico_margin_left">25dp</dimen>
+    <dimen name="lfm_ico_margin_top">12dp</dimen>
+    <dimen name="lfm_ico_margin_bottom">12dp</dimen>
+
+    <dimen name="lfm_text_margin_left">15dp</dimen>
+
+    <dimen name="lfm_btn_width">35dp</dimen>
+    <dimen name="lfm_btn_height">15dp</dimen>
+    <dimen name="lfm_btn_margin_left">78dp</dimen>
+    <!---->
+
+    <!--登录和密码修改页面-->
+    <dimen name="loginout_item_width">230dp</dimen>
+    <dimen name="loginout_item_height">38dp</dimen>
+    <dimen name="loginout_item_margin">15dp</dimen>
+
+    <dimen name="loginout_input_width">200dp</dimen>
+    <dimen name="loginout_input_height">38dp</dimen>
+
+    <dimen name="loginout_input_padding">5dp</dimen>
+    <dimen name="loginout_input_text_size">15sp</dimen>
+
+    <dimen name="loginout_showhide_width">38dp</dimen>
+    <dimen name="loginout_showhide_height">38dp</dimen>
+    <dimen name="loginout_showhide_padding">6dp</dimen>
+
+    <dimen name="login_checkbox_text_box_padding">8dp</dimen>
+    <dimen name="login_checkbox_text_size">15sp</dimen>
+    <dimen name="login_checkbox_between">16dp</dimen>
+    <dimen name="login_checkbox_margin_top_bottom">20dp</dimen>
+
+    <dimen name="logInOut_btn_text_size">16sp</dimen>
+    <dimen name="logInOut_btn_padding">6dp</dimen>
+    <dimen name="logInOut_btn_margintop">40dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+    <!-- Titlebar size -->
+    <dimen name="titleBar_height">50dp</dimen>
+    <dimen name="titleBar_margin_left">15dp</dimen>
+    <dimen name="titleBar_text_size">17sp</dimen>
+    <dimen name="titleBar_questionTypeChooser_text_size">14sp</dimen>
+    <dimen name="titleBar_ib_size">27dp</dimen>
+    <dimen name="titleBar_tv_padding_top">2dp</dimen>
+    <dimen name="titleBar_tv_padding_left">0dp</dimen>
+
+    <!--内容页-->
+    <dimen name="content_leftRight_Padding">10dp</dimen>
+
+    <dimen name="rev_itemNum_size">35sp</dimen>
+    <dimen name="rev_title_size">16sp</dimen>
+    <dimen name="test_title_size">15sp</dimen>
+
+    <dimen name="test_itemNum_size">35sp</dimen>
+    <dimen name="test_type_size">12sp</dimen>
+    <dimen name="test_question_size">16sp</dimen>
+
+    <dimen name="nav_card_margin_left_right">8dp</dimen>
+    <dimen name="nav_card_margin_top">74dp</dimen>
+    <dimen name="nav_card_margin_bottom">5dp</dimen>
+    <dimen name="nav_card_padding">30dp</dimen>
+
+    <!-- home indicator size -->
+    <dimen name="fragment_radioButton_height">50dp</dimen>
+    <dimen name="indicator_height">35dp</dimen>
+
+    <!--cw_listviw item-->
+    <dimen name="_list_item_minHeight">60dp</dimen>
+    <dimen name="_list_item_ibt_height">40dp</dimen>
+    <!--cw内页listview -->
+    <dimen name="test_list_paddingLeft">5dp</dimen>
+
+    <!--test考试界面-->
+    <dimen name="test_option_img_size">26dp</dimen>
+    <dimen name="test_option_text_size">15sp</dimen>
+    <dimen name="test_inner_padding">5dp</dimen>
+
+    <!--test look back gv textSize -->
+    <dimen name="gv_text_size">16sp</dimen>
+
+    <!--在线测试图片填充-->
+    <dimen name="testModeItem_x_padding">5dp</dimen>
+    <dimen name="testModeItem_y_padding">5dp</dimen>
+
+    <dimen name="progressBarSize">35dp</dimen>
+    <dimen name="connerRadius">8dp</dimen>
+
+
+</resources>

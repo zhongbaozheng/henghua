@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><!--tileMode是否平铺--><!--Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon);--><!--BitmapDrawable bd = new BitmapDrawable(bitmap);--><!--bd.setTileModeXY(TileMode.REPEAT , TileMode.REPEAT );--><!--bd.setDither(true);--><!--view.setBackgroundDrawable(bd);-->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_menu_bg_bmp"
+    android:gravity="top"
+    android:src="@drawable/leftmenu_bg"
+    android:tileMode="disabled"></bitmap>

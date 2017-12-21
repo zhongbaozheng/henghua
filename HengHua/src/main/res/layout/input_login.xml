@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="@dimen/loginout_item_width"
+        android:layout_height="@dimen/loginout_item_height"
+        android:layout_marginTop="@dimen/loginout_item_margin"
+        android:background="@drawable/loginout_input_bg">
+        <!--android:textCursorDrawable="@null"-->
+        <!--android:cursorVisible="false"-->
+
+        <EditText
+            android:id="@+id/login_account_et"
+            android:layout_width="@dimen/loginout_item_width"
+            android:layout_height="@dimen/loginout_input_height"
+            android:gravity="center_vertical"
+            android:hint="账号"
+            android:background="@null"
+            android:inputType="textVisiblePassword"
+            android:digits="@string/input_limit"
+            android:maxLines="1"
+            android:textCursorDrawable="@null"
+            android:padding="@dimen/loginout_input_padding"
+            android:selectAllOnFocus="true"
+            android:textSize="@dimen/loginout_input_text_size"
+            android:maxLength="@integer/loginout_input_account_length"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/loginout_item_width"
+        android:layout_height="@dimen/loginout_item_height"
+        android:layout_marginTop="@dimen/loginout_item_margin"
+        android:background="@drawable/loginout_input_bg">
+
+        <EditText
+            android:id="@+id/login_pwd_et"
+            android:layout_width="@dimen/loginout_input_width"
+            android:layout_height="@dimen/loginout_input_height"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:hint="密码"
+            android:background="@null"
+            android:inputType="textPassword"
+            android:digits="@string/input_limit"
+            android:maxLines="1"
+            android:textCursorDrawable="@null"
+            android:padding="@dimen/loginout_input_padding"
+            android:selectAllOnFocus="true"
+            android:textSize="@dimen/loginout_input_text_size"
+            android:maxLength="@integer/loginout_input_pwd_length"
+            android:visibility="visible"
+            android:imeOptions="actionDone"
+            />
+
+
+        <ImageView
+            android:id="@+id/login_pwd_show_hide_im"
+            android:layout_width="@dimen/loginout_showhide_width"
+            android:layout_height="@dimen/loginout_showhide_height"
+            android:layout_gravity="center"
+            android:layout_toRightOf="@id/login_pwd_et"
+            android:padding="@dimen/loginout_showhide_padding"
+            android:src="@drawable/pwd_show_hide_slt"
+            android:clickable="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/loginout_item_width"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/login_checkbox_margin_top_bottom">
+        <!--paddingLeft来控制button和文字的间距-->
+        <CheckBox
+            android:id="@+id/remember_pwd_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/login_checkbox_slt"
+            android:checked="true"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:text="记住密码"
+            android:paddingLeft="@dimen/login_checkbox_text_box_padding"
+            android:textAlignment="center"
+            android:textColor="@color/loginout_btn"
+            android:textSize="@dimen/login_checkbox_text_size" />
+
+        <CheckBox
+            android:id="@+id/auto_login_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/remember_pwd_cb"
+            android:button="@drawable/login_checkbox_slt"
+            android:checked="true"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:text="自动登录"
+            android:paddingLeft="@dimen/login_checkbox_text_box_padding"
+            android:textAlignment="center"
+            android:textColor="@color/loginout_btn"
+            android:textSize="@dimen/login_checkbox_text_size"
+            android:layout_marginLeft="@dimen/login_checkbox_between"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/login_btn_tv"
+        android:layout_width="@dimen/loginout_item_width"
+        android:layout_height="@dimen/loginout_item_height"
+        android:background="@drawable/loginout_button_slt"
+        android:layout_gravity="center"
+        android:text="@string/loginout_login"
+        android:textSize="@dimen/logInOut_btn_text_size"
+        android:textColor="@color/loginout_btn"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/logInOut_btn_margintop"/>
+
+
+</LinearLayout>

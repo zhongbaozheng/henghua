@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_flo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginout_bg"
+    android:clipToPadding="true">
+
+    <!--登录界面-->
+    <LinearLayout
+        android:id="@+id/login_lo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <!--android:clipToPadding="true"-->
+        <!--android:fitsSystemWindows="true" -->
+
+        <!--头部资料显示-->
+        <RelativeLayout
+            android:id="@+id/head"
+            android:layout_width="@dimen/loginout_item_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="230dp"
+            android:clickable="false">
+
+        </RelativeLayout>
+        <!--信息操作-->
+        <include layout="@layout/input_login" />
+    </LinearLayout>
+
+    <!--启动画面-->
+    <TextView
+        android:id="@+id/splash_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/splash"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/logInTip_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="30dp"
+        android:text="登录中，请稍后..."
+        android:textColor="@color/loginout_btn"
+        android:textSize="15sp"
+        android:visibility="invisible"/>
+
+</FrameLayout>

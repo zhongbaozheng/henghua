@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:background="@color/app_background">
+
+    <!--状态栏+标题栏viewGroup-->
+    <include
+        android:id="@+id/top_bar_lo"
+        layout="@layout/top_bar" />
+
+    <!--内容容器-->
+    <FrameLayout
+        android:id="@+id/container_fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar_lo"
+        android:orientation="vertical" />
+</RelativeLayout>
+
+

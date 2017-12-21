@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="@dimen/nav_card_padding"
+    android:paddingRight="@dimen/nav_card_padding"
+    android:paddingTop="5dp">
+
+    <!--题型-->
+    <TextView
+        android:id="@+id/navCardQuestionType_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_question_type"
+        android:gravity="center"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="3dp"
+        android:text=""
+        android:textColor="@color/nav_tab_text_selected"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+    <!--题号-->
+    <com.hengdian.henghua.widget.MyGridView
+        android:id="@+id/questionIndex_gv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:numColumns="5"
+        android:stretchMode="columnWidth" />
+
+</LinearLayout>

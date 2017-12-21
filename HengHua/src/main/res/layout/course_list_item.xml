@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/courseListItem_rl"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingBottom="2dp"
+    android:paddingTop="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:background="@drawable/course_item_bg"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="74.1dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/status_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/isbuy_false" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/courseDetails_ll"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/courseTitle_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:lines="1"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/app_text_5"
+                android:textStyle="bold" />
+            <!--单行字数限制 android:maxEms="18"-->
+            <TextView
+                android:id="@+id/courseDesc_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="3dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="课程简介"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/app_text_3" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/buyStatus_tv"
+                    android:layout_width="66dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/buy_status_button"
+                    android:gravity="center"
+                    android:text="购 买"
+                    android:textColor="@color/app_main"
+                    android:textSize="@dimen/app_text_2" />
+
+                <TextView
+                    android:id="@+id/price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/buyStatus_tv"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:text="￥：000.00"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/app_text_3" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@id/courseDetails_ll">
+
+            <TextView
+                android:id="@+id/date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DEC 08"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/app_text_5"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/year_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@id/date_tv"
+                android:layout_below="@id/date_tv"
+                android:text="2016"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/app_text_3" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

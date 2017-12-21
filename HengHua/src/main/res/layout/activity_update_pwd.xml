@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginout_bg"
+    android:clipToPadding="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <!--头部资料显示-->
+    <!--android:layout_width="@dimen/loginout_item_width"-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="220dp"
+        android:clickable="false">
+
+        <ImageView
+            android:id="@+id/pwd_account_pict_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="false"
+            android:padding="2dp"
+            android:src="@drawable/loginout_account" />
+
+        <TextView
+            android:id="@+id/pwd_account_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/pwd_account_pict_iv"
+            android:clickable="false"
+            android:gravity="center_vertical"
+            android:maxWidth="175dp"
+            android:text="000000"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+    <!--信息操作-->
+    <include layout="@layout/input_update_pwd" />
+
+
+</LinearLayout>

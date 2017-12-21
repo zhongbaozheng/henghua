@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/stage_root_ll"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/list_item_bg_slt"
+    android:gravity="center"
+    android:minHeight="@dimen/_list_item_minHeight"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp">
+
+
+    <RelativeLayout
+        android:id="@+id/stage_bg_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/test_brkth_locked">
+
+        <TextView
+            android:id="@+id/stage_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:lines="1"
+            android:padding="6dp"
+            android:textColor="@color/stageLocked"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/stage_title_tv"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stage_num_tv"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:lines="1"
+            android:padding="6dp"
+            android:textColor="@color/stageLocked"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</LinearLayout>

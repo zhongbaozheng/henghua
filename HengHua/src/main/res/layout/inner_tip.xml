@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tip_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <!-- style=""中去维护两个图片交错方向相反旋转 -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/progressBar_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_rounded_rectangle_black"
+        android:padding="18dp" />
+
+    <!--更新失败提示-->
+    <TextView
+        android:id="@+id/tip_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar"
+        android:layout_centerHorizontal="true"
+        android:text="页面提示"
+        android:visibility="invisible" />
+
+</RelativeLayout>

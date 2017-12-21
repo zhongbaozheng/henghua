@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fr_review"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--进度条和错误提示-->
+    <include layout="@layout/inner_tip" />
+
+    <!--内容列表-->
+    <!--去掉自带箭头,bookChapterELV.setGroupIndicator(null);-->
+    <ExpandableListView
+        android:id="@+id/book_chapter_elv"
+        android:layout_width="match_parent"
+        android:groupIndicator="@null"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:visibility="invisible" />
+    <!--android:drawSelectorOnTop="true"-->
+    <!--android:background="@color/list_bg"-->
+    <!--android:cacheColorHint="@android:color/transparent"-->
+</RelativeLayout>

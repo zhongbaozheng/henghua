@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_root_rl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:minHeight="@dimen/_list_item_minHeight">
+
+    <RelativeLayout
+        android:id="@+id/item_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:clickable="false"
+        android:gravity="center_vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/bookName_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:width="290dp"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:textColor="@color/app_black"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bookName_tv"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/examSmallTest"
+                android:text="已作答" />
+
+            <TextView
+                android:id="@+id/countDo_tv"
+                style="@style/examRedTest"
+                android:text="" />
+
+            <TextView
+                style="@style/examSmallTest"
+                android:text="/" />
+
+            <TextView
+                android:id="@+id/countTotal_tv"
+                style="@style/examSmallTest"
+                android:text="" />
+
+            <!--<TextView-->
+            <!--android:id="@+id/manTime_tv"-->
+            <!--style="@style/examRedTest"-->
+            <!--android:layout_marginLeft="35dp"-->
+            <!--android:text="6666" />-->
+
+            <!--<TextView-->
+            <!--style="@style/examSmallTest"-->
+            <!--android:text="人次作答" />-->
+        </LinearLayout>
+        <!--android:layout_alignTop="@id/bookName_tv"-->
+        <TextView
+            android:id="@+id/examStatusBtn_tv"
+            android:layout_width="95dp"
+            android:layout_height="34dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/blue_button_slt"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="去考试吧"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <!--<LinearLayout-->
+        <!--android:id="@+id/statusBtn_ll"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignTop="@id/bookName_tv"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/examStatusBtn_tv"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="28dp"-->
+        <!--android:layout_marginTop="2dp"-->
+        <!--android:background="@drawable/blue_button_slt"-->
+        <!--android:clickable="true"-->
+        <!--android:gravity="center"-->
+        <!--android:text="去考试吧"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="15sp" />-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+
+
+        <!--<TextView-->
+        <!--style="@style/examSmallTest"-->
+        <!--android:text="考试成绩：" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/score_tv"-->
+        <!--style="@style/examRedTest"-->
+        <!--android:text="100" />-->
+        <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+    </RelativeLayout>
+    <!--分隔条-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/list_item_divider"
+        android:clickable="false" />
+
+</RelativeLayout>

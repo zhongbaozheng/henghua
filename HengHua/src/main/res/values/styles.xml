@@ -1,0 +1,211 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+        <!--<item name="android:windowIsTranslucent"> true </item>-->
+
+        <item name="colorPrimary">@color/app_main</item>
+        <item name="colorPrimaryDark">@color/app_main</item>
+        <item name="colorAccent">@color/app_main</item>
+
+        <item name="android:activityOpenEnterAnimation">@anim/enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/exit</item>
+    </style>
+
+
+    <!--通过window.setWindowAnimations方法指定给当前的Activity，-->
+    <!--这样，当这个Activity进入退出的时候就会分别执行-->
+    <!--windowEnterAnimation和windowExitAnimation Item指定的anim了。-->
+    <style name="mystyle" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/enter</item>
+        <item name="@android:windowExitAnimation">@anim/exit</item>
+    </style>
+
+    <style name="RightOut" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--<item name="android:windowIsTranslucent"> true </item>-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/fade_out</item>
+
+    </style>
+
+    <style name="AnimFade" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/fade_out</item>
+    </style>
+
+
+    <style name="AnimationActivity" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_exit</item>
+
+        <item name="android:activityCloseEnterAnimation">@anim/back_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/back_exit</item>
+    </style>
+
+
+    <!--test考试内页 选项-->
+    <style name="testOptionTV">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/test_option_text_size</item>
+        <item name="android:textColor">@drawable/test_option_select</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/test_inner_padding</item>
+    </style>
+
+    <!--test考试内页 选项-->
+    <style name="testButton">
+        <item name="android:layout_width">93dp</item>
+        <item name="android:layout_height">31dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <!--导航卡-->
+    <style name="navCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/nav_card_margin_top</item>
+        <item name="android:layout_marginLeft">@dimen/nav_card_margin_left_right</item>
+        <item name="android:layout_marginRight">@dimen/nav_card_margin_left_right</item>
+        <item name="android:layout_marginBottom">@dimen/nav_card_margin_bottom</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:alpha">0.95</item>
+        <item name="android:background">@drawable/card_border</item>
+    </style>
+
+
+    <style name="testOptionIV">
+        <item name="android:layout_width">@dimen/test_option_img_size</item>
+        <item name="android:layout_height">@dimen/test_option_img_size</item>
+        <item name="android:paddingTop">3dp</item>
+    </style>
+
+    <style name="testOptionItemLL">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clickable">true</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:orientation">horizontal</item>
+        <!--<item name="android:paddingLeft">0dp</item>-->
+        <!--<item name="android:paddingRight">15dp</item>-->
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+
+    <!--&lt;!&ndash;重温内页 &ndash;&gt;-->
+    <!--<style name="TestButton">-->
+    <!--<item name="android:textSize">12sp</item>-->
+    <!--<item name="android:paddingTop">4dp</item>-->
+    <!--<item name="android:gravity">center</item>-->
+    <!--<item name="android:layout_width">wrap_content</item>-->
+    <!--<item name="android:layout_height">@dimen/fragment_radioButton_height</item>-->
+    <!--<item name="android:textColor">@color/indicator</item>-->
+    <!--<item name="android:background">@drawable/selector_indicator_bg</item>-->
+    <!--</style>-->
+
+    <!--窗口标题字体-->
+    <style name="titleBarText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/titleBar_text_size</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <!--<item name="android:button">@null</item>-->
+    </style>
+
+    <!--题型选择按钮字体-->
+    <style name="testTypeChooserText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/test_question_type_bg_slt</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/titleBar_questionTypeChooser_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <!--<item name="android:button">@null</item>-->
+    </style>
+
+    <!--	第一个属性给进度条的样式添加一个可以带旋转动画的图片  -->
+    <style name="progressBar_circle">
+        <item name="android:indeterminateDrawable">@drawable/progress_circle</item>
+        <item name="android:maxHeight">@dimen/progressBarSize</item>
+        <item name="android:maxWidth">@dimen/progressBarSize</item>
+        <item name="android:minHeight">@dimen/progressBarSize</item>
+        <item name="android:minWidth">@dimen/progressBarSize</item>
+    </style>
+
+    <!--在线测试模式选项样式-->
+    <style name="testModeItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_indicator_bg</item>
+        <item name="android:paddingLeft">@dimen/testModeItem_x_padding</item>
+        <item name="android:paddingRight">@dimen/testModeItem_x_padding</item>
+        <item name="android:paddingTop">@dimen/testModeItem_y_padding</item>
+        <item name="android:paddingBottom">@dimen/testModeItem_y_padding</item>
+    </style>
+
+
+    <!--考试模式字体样式-->
+    <style name="examSmallTest">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textSize">11sp</item>
+
+    </style>
+
+    <style name="examRedTest" parent="@style/examSmallTest">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!--自定义复选框样式-->
+    <!--<CheckBox-->
+    <!--android:id="@+id/checkbox1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--style="@style/MyCheckboxStyle" />-->
+
+    <!--<style name="MyCheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">-->
+    <!--<item name="android:button">@drawable/login_checkbox_slt</item>-->
+    <!--</style>-->
+
+
+</resources>

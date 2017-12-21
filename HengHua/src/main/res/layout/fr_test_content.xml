@@ -1,0 +1,316 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/top_bar_lo">
+    <!--内容模块-->
+    <FrameLayout
+        android:id="@+id/testContainer_fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/nav_bar_height">
+
+        <!--内容-->
+        <LinearLayout
+            android:id="@+id/content_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <!--android:paddingLeft="@dimen/content_leftRight_Padding"-->
+            <!--android:paddingRight="@dimen/content_leftRight_Padding"-->
+
+            <ScrollView
+                android:id="@+id/content_sv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="ifContentScrolls"
+                android:scrollbarStyle="insideOverlay"
+                android:fillViewport="true"
+                android:scrollbars="vertical">
+
+                <!--<android.support.v4.view.ViewPager-->
+                    <!--android:id="@+id/viewPager"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--/>-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="@dimen/content_leftRight_Padding">
+
+                    <!--题目模块-->
+                    <RelativeLayout
+                        android:id="@+id/titleModel_rl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible">
+
+                        <LinearLayout
+                            android:id="@+id/itemMode_ll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/itemNum_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:includeFontPadding="false"
+                                android:lineSpacingExtra="-1dp"
+                                android:textColor="@color/nav_tab_text_normal"
+                                android:textSize="@dimen/test_itemNum_size"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/itemType_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:includeFontPadding="false"
+                                android:gravity="center"
+                                android:textColor="@color/app_main"
+                                android:textSize="@dimen/test_type_size" />
+                        </LinearLayout>
+
+                        <!--题目-->
+                        <!--<com.hengdian.henghua.widget.JustifyTextView-->
+                        <TextView
+                            android:id="@+id/itemTitle_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/itemMode_ll"
+                            android:layout_toRightOf="@id/itemMode_ll"
+                            android:includeFontPadding="false"
+                            android:lineSpacingExtra="0dp"
+                            android:paddingTop="5dp"
+                            android:paddingLeft="2dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/test_title_size" />
+                    </RelativeLayout>
+
+                    <!--选项模块-->
+                    <LinearLayout
+                        android:id="@+id/options_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/titleModel_rl"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:visibility="visible">
+
+
+                        <LinearLayout
+                            android:id="@+id/optionA_ll"
+                            style="@style/testOptionItemLL">
+
+                            <ImageView
+                                android:id="@+id/optionA_iv"
+                                style="@style/testOptionIV"
+                                android:src="@drawable/select_a_img" />
+
+                            <TextView
+                                android:id="@+id/optionA_tv"
+                                style="@style/testOptionTV"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/optionB_ll"
+                            style="@style/testOptionItemLL">
+
+                            <ImageView
+                                android:id="@+id/optionB_iv"
+                                style="@style/testOptionIV"
+                                android:src="@drawable/select_b_img" />
+
+                            <TextView
+                                android:id="@+id/optionB_tv"
+                                style="@style/testOptionTV"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/optionC_ll"
+                            style="@style/testOptionItemLL">
+
+                            <ImageView
+                                android:id="@+id/optionC_iv"
+                                style="@style/testOptionIV"
+                                android:src="@drawable/select_c_img" />
+
+                            <TextView
+                                android:id="@+id/optionC_tv"
+                                style="@style/testOptionTV"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/optionD_ll"
+                            style="@style/testOptionItemLL">
+
+                            <ImageView
+                                android:id="@+id/optionD_iv"
+                                style="@style/testOptionIV"
+                                android:src="@drawable/select_d_img" />
+
+                            <TextView
+                                android:id="@+id/optionD_tv"
+                                style="@style/testOptionTV"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/optionE_ll"
+                            style="@style/testOptionItemLL">
+
+                            <ImageView
+                                android:id="@+id/optionE_iv"
+                                style="@style/testOptionIV"
+                                android:src="@drawable/select_e_img" />
+
+                            <TextView
+                                android:id="@+id/optionE_tv"
+                                style="@style/testOptionTV"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/optionF_ll"
+                            style="@style/testOptionItemLL">
+
+                            <ImageView
+                                android:id="@+id/optionF_iv"
+                                style="@style/testOptionIV"
+                                android:src="@drawable/select_f_img" />
+
+                            <TextView
+                                android:id="@+id/optionF_tv"
+                                style="@style/testOptionTV"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/optionG_ll"
+                            style="@style/testOptionItemLL">
+
+                            <ImageView
+                                android:id="@+id/optionG_iv"
+                                style="@style/testOptionIV"
+                                android:src="@drawable/select_g_img" />
+
+                            <TextView
+                                android:id="@+id/optionG_tv"
+                                style="@style/testOptionTV"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/optionTrue_ll"
+                            style="@style/testOptionItemLL">
+
+                            <ImageView
+                                android:id="@+id/optionTrue_iv"
+                                style="@style/testOptionIV"
+                                android:src="@drawable/select_t_img" />
+
+                            <TextView
+                                android:id="@+id/optionTrue_tv"
+                                style="@style/testOptionTV"
+                                android:text="正 确" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/optionFalse_ll"
+                            style="@style/testOptionItemLL">
+
+                            <ImageView
+                                android:id="@+id/optionFalse_iv"
+                                style="@style/testOptionIV"
+                                android:src="@drawable/select_f_img" />
+
+                            <TextView
+                                android:id="@+id/optionFalse_tv"
+                                style="@style/testOptionTV"
+                                android:text="错 误" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!--确定按钮-->
+                    <TextView
+                        android:id="@+id/ensureBtn_tv"
+                        style="@style/testButton"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/options_ll"
+                        android:background="@drawable/blue_button_slt"
+                        android:text="确 定"
+                        android:textColor="@android:color/white"
+                        android:textSize="17sp"
+                        android:visibility="gone" />
+
+                    <!--答案/解析-->
+                    <LinearLayout
+                        android:id="@+id/answer_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ensureBtn_tv"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/answer_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text=""
+                                android:textColor="@color/indicator_checked"
+                                android:textSize="19sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/answerBtn_tv"
+                                style="@style/testButton"
+                                android:background="@drawable/answer_rigth" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/explain_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="20dp"
+                            android:textAlignment="textStart"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/test_option_text_size" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+            </ScrollView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/flapper_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <!--导航卡-->
+        <include layout="@layout/nav_card" />
+
+        <!--进度条和错误提示-->
+        <include layout="@layout/inner_tip" />
+    </FrameLayout>
+
+    <!--导航模块-->
+    <include
+        android:id="@+id/bottomModel_ll"
+        layout="@layout/bottom_buttons"
+        android:visibility="visible" />
+</RelativeLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/app_background"
+    android:orientation="vertical">
+
+    <!--分割线-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_bar_divider_width"
+        android:background="@color/nav_tab_divider"
+        android:clickable="false" />
+
+    <!--按钮行  布局-->
+    <RelativeLayout
+        android:id="@+id/nav_buttons_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_bar_height">
+
+        <!--上一个-->
+        <LinearLayout
+            android:id="@+id/lastOne_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/nav_tab_padding">
+
+            <!--导航标签图标-->
+            <ImageView
+                android:id="@+id/lastOne_iv"
+                android:layout_width="@dimen/nav_tab_width"
+                android:layout_height="@dimen/nav_img_height"
+                android:gravity="center"
+                android:src="@drawable/select_last_img" />
+
+            <!--导航标签文字-->
+            <TextView
+                android:id="@+id/lastOne_tv"
+                android:layout_width="@dimen/nav_tab_width"
+                android:layout_height="@dimen/nav_text_height"
+                android:gravity="center"
+                android:paddingTop="2dp"
+                android:text="上一题"
+                android:textColor="@drawable/nav_tab_text_slt"
+                android:textSize="@dimen/nav_text_size" />
+        </LinearLayout>
+
+        <!--中间按钮-->
+        <LinearLayout
+            android:id="@+id/centerButton_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/nav_tab_padding">
+
+            <ImageView
+                android:id="@+id/centerButton_iv"
+                android:layout_width="@dimen/nav_tab_width"
+                android:layout_height="@dimen/nav_img_height"
+                android:gravity="center"
+
+                android:src="@drawable/card_review_list0" />
+
+            <TextView
+                android:id="@+id/centerButton_tv"
+                android:layout_width="@dimen/nav_tab_width"
+                android:layout_height="@dimen/nav_text_height"
+                android:gravity="center"
+                android:paddingTop="2dp"
+                android:text="导航卡"
+                android:textColor="@drawable/nav_tab_text_slt"
+                android:textSize="@dimen/nav_text_size" />
+        </LinearLayout>
+
+        <!--下一个-->
+        <LinearLayout
+            android:id="@+id/nextOne_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/nav_tab_padding">
+
+            <ImageView
+                android:id="@+id/nextOne_iv"
+                android:layout_width="@dimen/nav_tab_width"
+                android:layout_height="@dimen/nav_img_height"
+                android:gravity="center"
+                android:src="@drawable/select_next_img" />
+
+            <TextView
+                android:id="@+id/nextOne_tv"
+                android:layout_width="@dimen/nav_tab_width"
+                android:layout_height="@dimen/nav_text_height"
+                android:gravity="center"
+                android:paddingTop="2dp"
+                android:text="下一题"
+                android:textColor="@drawable/nav_tab_text_slt"
+                android:textSize="@dimen/nav_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+
+

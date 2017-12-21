@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">恒华大数据</string>
+    <string name="cw">知识重温</string>
+    <string name="cs">在线测试</string>
+    <string name="cj">知识串讲</string>
+
+
+    <string name="lx">练习模式</string>
+    <string name="cg">闯关模式</string>
+    <string name="ks">考试模式</string>
+
+
+    <string name="loginout_login">登        录</string>
+    <string name="loginout_commit">确       定</string>
+    <string name="input_limit">1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^*\/?_.</string>
+
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_net">NetActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_review_content">ReviewContentActivity</string>
+
+
+</resources>

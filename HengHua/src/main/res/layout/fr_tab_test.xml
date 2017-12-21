@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fr_test_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/testContainer_fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <!--类型选择-->
+    <LinearLayout
+        android:id="@+id/modeOptions_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:id="@+id/exercise_iv"
+            style="@style/testModeItem"
+            android:src="@drawable/test_exercise" />
+
+        <ImageView
+            android:id="@+id/breakthrough_iv"
+            style="@style/testModeItem"
+            android:src="@drawable/test_breakthrough" />
+
+        <ImageView
+            android:id="@+id/exam_iv"
+            style="@style/testModeItem"
+            android:src="@drawable/test_exam" />
+    </LinearLayout>
+
+</RelativeLayout>

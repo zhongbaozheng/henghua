@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hengdian.henghua.widget.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_dl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    tools:context=".activity.MainActivity">
+
+    <!--android:clipToPadding="true"-->
+    <!--android:fitsSystemWindows="true" -->
+
+    <!--左侧菜单-->
+    <include layout="@layout/left_menu_layout" />
+    <!--主界面-->
+    <FrameLayout
+        android:id="@+id/root_lo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/root_bg"
+        android:orientation="vertical">
+
+        <!--背景蒙版-->
+        <TextView
+            android:id="@+id/main_shadow_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_shadow"
+            android:clickable="false" />
+        <!--android:background="@color/main_shadow"-->
+        <!--主界面可视化层-->
+        <RelativeLayout
+            android:id="@+id/main_root_lo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/root_bg">
+
+            <!--状态栏+标题栏viewGroup-->
+            <include
+                android:id="@id/top_bar_lo"
+                layout="@layout/top_bar" />
+
+            <!--主界面内容显示主体-->
+            <FrameLayout
+                android:id="@+id/container_fl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/top_bar_lo"
+                android:layout_marginBottom="@dimen/nav_bar_height" />
+
+
+            <!--导航栏-->
+            <com.hengdian.henghua.widget.FragmentTabHost
+                android:id="@+id/tab_host"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/app_background" />
+
+            <!--导航栏分割线-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_bar_divider_width"
+                android:layout_above="@+id/tab_host"
+                android:background="@color/nav_tab_divider"
+                android:clickable="false" />
+        </RelativeLayout>
+
+        <!--动作拦截挡板-->
+        <TextView
+            android:id="@+id/main_top_flap_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_top_flap" />
+
+
+    </FrameLayout>
+</com.hengdian.henghua.widget.DragLayout>

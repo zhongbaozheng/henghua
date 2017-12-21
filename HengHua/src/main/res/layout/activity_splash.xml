@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splash_root_ro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash"
+    android:gravity="center_horizontal"
+    android:clipToPadding="true"
+    android:visibility="visible">
+
+    <!--Actionbar半透明:只要设置actionbarOverlay为true并为ActionBar设置一个半透明的background即可.-->
+    <!-- android:clipToPadding="true",控件的绘制区域是否在padding里面-->
+    <!--控制Android的一个子view是否运行超越父控件边界放置(默认true不允许):android:clipChildren-->
+    <!--android:fitsSystemWindows="true"-->
+
+</RelativeLayout>

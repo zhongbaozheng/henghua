@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,6 +27,8 @@ import android.widget.Toast;
 import com.hengdian.henghua.R;
 import com.hengdian.henghua.activity.ContentActivity;
 import com.hengdian.henghua.adapter.ExamNavCardLvAdapter;
+import com.hengdian.henghua.adapter.ExamPagerScrollAdapter;
+import com.hengdian.henghua.adapter.ExercisePagerScrollAdapter;
 import com.hengdian.henghua.androidUtil.DBUtil;
 import com.hengdian.henghua.androidUtil.LOGTAG;
 import com.hengdian.henghua.androidUtil.LogUtil;
@@ -88,6 +92,16 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
 
     private long timeRemain = 0; //剩余时间
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+
+
+    public List<Question> mQuestionList = new ArrayList<>();
+    public List<View>  mListView = new ArrayList<>();
+
+    private ExamPagerScrollAdapter mAdapter;
+
+    public PagerHolder pagerHolder;
+
+    private Question mQuestion;
 
     /**
      * 时间置零
@@ -251,14 +265,7 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
     private void exit() {
         RefreshHolder.TEST_EXAM_LIST = RefreshHolder.REFRESH_NET;
         ((ContentActivity) activityCtx).setSelectedFragment(null);
-
-//
-//
 //        //返回，刷新上级列表
-//        Intent intent = new Intent();
-//        intent.putExtra("result", "refresh");
-//
-//        ((ContentActivity) activityCtx).setResult(Constant.RequestResultCode.FROM_EXAM_CONTENT, intent);
         ((ContentActivity) activityCtx).finish();
     }
 
@@ -426,7 +433,7 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
 
     public View initFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fr_test_content, null);
+        rootView = inflater.inflate(R.layout.fr_exam_content, null);
 
         if (viewHolder == null) {
             viewHolder = new ViewHolder(rootView, false);
@@ -448,46 +455,8 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
             }
         });
 
-
-//        viewHolder.contentSV.setOnTouchListener( new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                int direct = UIUtil.getTouchDirection(event, 50);
-//                if (direct == UIUtil.TOUCH_LEFT) {
-//                    goForward();
-//
-//                } else if (direct == UIUtil.TOUCH_RIGHT) {
-//                    backForward();
-//                }
-//
-//                return false;
-//            }
-//        });
-
-        //选项布局
-        mOptionLL = new LinearLayout[]{viewHolder.optionALL,
-                viewHolder.optionBLL, viewHolder.optionCLL, viewHolder.optionDLL, viewHolder.optionELL
-                , viewHolder.optionFLL, viewHolder.optionGLL, viewHolder.optionTrueLL, viewHolder.optionFalseLL};
-
-        mOptionLlLength = mOptionLL.length;
-//        //选项图标
-//        mOptionIV = new ImageView[]{viewHolder.optionAIV, viewHolder.optionBIV, viewHolder.optionCIV
-//                , viewHolder.optionDIV, viewHolder.optionEIV, viewHolder.optionFalseIV, viewHolder.optionGIV
-//                , viewHolder.optionTrueIV, viewHolder.optionFalseIV};
-        //选项文字
-        mOptionTV = new TextView[]{viewHolder.optionATV, viewHolder.optionBTV,
-                viewHolder.optionCTV, viewHolder.optionDTV, viewHolder.optionETV, viewHolder.optionFalseTV
-                , viewHolder.optionGTV, viewHolder.optionTrueTV, viewHolder.optionFalseTV};
-
-
         initTopBar();
         initBottomButton();
-
-        for (int i = 0; i < mOptionLL.length; i++) {
-            mOptionLL[i].setOnClickListener(this);
-        }
-
-        viewHolder.ensureBtnTV.setOnClickListener(this);
 
         return rootView;
     }
@@ -530,11 +499,15 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
                     multipleList.clear();
                     trueOrFalseList.clear();
 
+
                     if (curIndex1 > 0) {
                         ToastUtil.toastMsgShort("欢迎继续考试");
                     }
 
                     List<Question> questionTotal = data.getQuestionList();
+                    mQuestionList.clear();
+                    //组装数据
+                    mQuestionList.addAll(questionTotal);
 
                     for (int i = 0; i < questionTotal.size(); i++) {
                         Question question = questionTotal.get(i);
@@ -553,11 +526,55 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
                         }
                     }
 
+                    //组装数据组view
+                    if(mListView.size()>0)mListView.clear();
+
+                    for(int i=0;i<mQuestionList.size();i++){
+                        View v = View.inflate(activityCtx,R.layout.execrise_scroll_pager,null);
+                        mListView.add(v);
+                    }
+
                     sizeSingle = singleList.size();
                     sizeMultiple = multipleList.size();
                     sizeTrueFalse = trueOrFalseList.size();
 
-                    //设置题目
+                    //添加Adapter
+                    mAdapter = new ExamPagerScrollAdapter(activityCtx,mListView,mQuestionList);
+                    viewHolder.mViewPager.setAdapter(mAdapter);
+
+                    viewHolder.mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        @Override
+                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                            //滑动初始化
+                            mQuestion = mQuestionList.get(position);
+                            pagerHolder = new PagerHolder(mListView.get(position));
+                            setPagerViewsClick();
+                            dealWithIndex(curIndex1);
+                        }
+
+                        @Override
+                        public void onPageSelected(int position) {
+                            //设置当前页
+                            curIndex1 = position;
+                            Log.e("curIndex1",curIndex1+"");
+                            dealWithIndex(curIndex1);
+
+                            //更新
+                            if(isNavCardShowed){
+                                examListAdapter.notifyDataSetChanged();
+                                examListAdapter.examNavCardGvAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onPageScrollStateChanged(int state) {
+
+                        }
+                    });
+
+                    //第一次进来的初始化界面，并设置 初始化内容
+                    pagerHolder = new PagerHolder(mListView.get(curIndex1));
+                    setPagerViewsClick();
                     dealWithIndex(curIndex1);
 
                     //关闭可能存在的计时
@@ -627,6 +644,128 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
 
 
     /**
+     * 初始化布局
+     */
+    private void setPagerViewsClick(){
+        //选项布局
+        mOptionLL = new LinearLayout[]{pagerHolder.optionALL,
+                pagerHolder.optionBLL, pagerHolder.optionCLL, pagerHolder.optionDLL, pagerHolder.optionELL
+                , pagerHolder.optionFLL, pagerHolder.optionGLL, pagerHolder.optionTrueLL, pagerHolder.optionFalseLL};
+
+        mOptionLlLength = mOptionLL.length;
+
+        //选项文字
+        mOptionTV = new TextView[]{pagerHolder.optionATV, pagerHolder.optionBTV,
+                pagerHolder.optionCTV, pagerHolder.optionDTV, pagerHolder.optionETV, pagerHolder.optionFalseTV
+                , pagerHolder.optionGTV, pagerHolder.optionTrueTV, pagerHolder.optionFalseTV};
+
+        for (int i = 0; i < mOptionLL.length; i++) {
+
+            mOptionLL[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //处理选项点击
+                    dealWithSelection(v);
+                }
+            });
+        }
+
+        pagerHolder.ensureBtnTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //处理确定按钮
+                if (curQuestion.selectedToString().length() == 0) {
+                    Toast.makeText(activityCtx, "请选择", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                //optionsClickForbidden(); //禁止点击
+                curQuestion.setState(Question.STATE2_ANSWERED);
+                checkAndShowAnswer(curQuestion, false);
+            }
+        });
+    }
+
+    /**
+     * 内容设置
+     * @param listIndex
+     */
+    private void setCurrentQuestion(int listIndex){
+
+        String questionNum = GadgetUtil.formatItemNum(listIndex + 1); //题号跟脚标差别
+//        String questionNum = GadgetUtil.formatItemNum(curQuestion.getID()); //题号跟脚标差别
+        pagerHolder.itemNumTV.setText(questionNum);
+        pagerHolder.itemTypeTV.setText(curQuestion.getQuestionTypeName());
+        pagerHolder.itemTitleTV.setText(curQuestion.getQuestionContent() + " (" + curQuestion.getScore() + "分)");
+        pagerHolder.titleModelRL.setVisibility(View.VISIBLE);
+
+        int state = curQuestion.getState();
+
+        String[] options = curQuestion.getOptions();
+        //显示对应数量选项
+        for (int i = 0; i < mOptionLL.length; i++) {
+            //初始化
+            mOptionLL[i].setSelected(false);
+
+            if (curQuestionType == Question.TYPE_TRUE_FALSE) {
+                optionIndex = mOptionLlLength - 2;
+                optionLength = 2;
+
+                //设置判断题选项
+                if (i == mOptionLlLength - 2) {
+
+                    //对,倒2
+                    mOptionTV[i].setText(options[0]);
+                    mOptionLL[i].setVisibility(View.VISIBLE);
+                    mOptionLL[i].setClickable(true);
+                } else if (i == mOptionLL.length - 1) {
+                    //倒1
+                    mOptionTV[i].setText(options[1]);
+                    mOptionLL[i].setVisibility(View.VISIBLE);
+                    mOptionLL[i].setClickable(true);
+                } else {
+                    //隐藏多余的
+                    mOptionLL[i].setVisibility(View.GONE);
+                }
+
+            } else {//不是判断题
+                optionIndex = 0;
+                optionLength = options.length;
+
+                if (i < options.length) {
+                    mOptionTV[i].setText(options[i]);
+                    mOptionLL[i].setVisibility(View.VISIBLE);
+                    mOptionLL[i].setClickable(true);
+                } else {
+                    //隐藏多余的
+                    mOptionLL[i].setVisibility(View.GONE);
+                }
+            }
+        }
+
+        //设置选项的选中状态
+        String[] selected = curQuestion.getSelected();
+        for (int i = 0; i < selected.length; i++) {
+            if (!selected[i].isEmpty()) {
+                mOptionLL[i].setSelected(true);
+            } else {
+                mOptionLL[i].setSelected(false);
+            }
+        }
+
+        //设置确定按钮点击和样式
+        pagerHolder.ensureBtnTV.setBackgroundResource(R.drawable.blue_button_slt);
+        pagerHolder.ensureBtnTV.setVisibility(View.INVISIBLE);
+        pagerHolder.answerLL.setVisibility(View.GONE);
+
+        //如果不是考试模式并且已经做过，显示答案
+        if (state >= Question.STATE2_ANSWERED) {
+            checkAndShowAnswer(curQuestion, false);
+        }
+    }
+
+
+    /**
      * 考试结果提交对话框
      */
     public void examCommitFailedNotice() {
@@ -663,36 +802,18 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
      * @param index 当前题号
      */
     public void dealWithIndex(int index) {
-
-        //判断题型范围
-        if (index < sizeSingle) { //单选
-
-            curIndexSingle = index;
-            setContent(index, curIndexSingle, singleList);
-
-        } else if (index < sizeSingle + sizeMultiple) {   //多选
-
-            curIndexMultiple = index - sizeSingle;
-            setContent(index, curIndexMultiple, multipleList);
-
-        } else { //判断
-
-            curIndexTrueFalse = index - sizeSingle - sizeMultiple;
-            setContent(index, curIndexTrueFalse, trueOrFalseList);
-
-        }
+        setContent(index,mQuestionList);
 
     }
 
 
     /**
-     * 设置题目内容显示
+     * 设置题目内容显示,为什么要加个index
      *
      * @param index
-     * @param listIndex
      * @param listData
      */
-    private void setContent(int index, int listIndex, List<Question> listData) {
+    private void setContent(int index, List<Question> listData) {
         viewHolder.contentSV.fullScroll(ScrollView.FOCUS_UP);
 
         //无数据
@@ -700,18 +821,6 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
 
             viewHolder.tipTV.setText("没有内容...");
             OtsUtil.windowShow(viewHolder.showGroup, OtsUtil.SHOW_TEXT_TIP);
-
-            //隐藏题目内容布局
-            viewHolder.itemNumTV.setText("");
-            viewHolder.itemTitleTV.setText("");
-            viewHolder.itemTitleTV.setText("");
-
-            for (int i = 0; i < mOptionLL.length; i++) {
-                mOptionLL[i].setVisibility(View.INVISIBLE);
-                mOptionTV[i].setText("");
-            }
-
-            viewHolder.ensureBtnTV.setVisibility(View.INVISIBLE);
 
             return;
         }
@@ -726,121 +835,15 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
             curQuestion.isShow = false;
         }
 
-        curQuestion = listData.get(listIndex);
+        curQuestion = listData.get(index);
         curQuestion.isShow = true;
         curQuestionType = curQuestion.getType();
         mAnswers = curQuestion.getSelected();
-
-
-        //题号
-        String questionNum = GadgetUtil.formatItemNum(index + 1); //题号跟脚标差别
-//        String questionNum = GadgetUtil.formatItemNum(curQuestion.getID()); //题号跟脚标差别
-        viewHolder.itemNumTV.setText(questionNum);
-        viewHolder.itemTypeTV.setText(curQuestion.getQuestionTypeName());
-        viewHolder.itemTitleTV.setText(curQuestion.getQuestionContent() + " (" + curQuestion.getScore() + "分)");
-        viewHolder.titleModelRL.setVisibility(View.VISIBLE);
-
-        int state = curQuestion.getState();
-
-        String[] options = curQuestion.getOptions();
-        //显示对应数量选项
-        for (int i = 0; i < mOptionLL.length; i++) {
-            //初始化
-            mOptionLL[i].setSelected(false);
-
-            if (curQuestionType == Question.TYPE_TRUE_FALSE) {
-                optionIndex = mOptionLlLength - 2;
-                optionLength = 2;
-
-                //设置判断题选项
-                if (i == mOptionLlLength - 2) {
-
-                    //对,倒2
-                    mOptionTV[i].setText(options[0]);
-                    mOptionLL[i].setVisibility(View.VISIBLE);
-
-                    //if (state < Question.STATE2_ANSWERED) {
-                    mOptionLL[i].setClickable(true);
-//                    } else {
-//                        mOptionLL[i].setClickable(false);
-//                    }
-                } else if (i == mOptionLL.length - 1) {
-                    //倒1
-                    mOptionTV[i].setText(options[1]);
-                    mOptionLL[i].setVisibility(View.VISIBLE);
-
-                    // if (state < Question.STATE2_ANSWERED) {
-                    mOptionLL[i].setClickable(true);
-//                    } else {
-//                        mOptionLL[i].setClickable(false);
-//                    }
-                } else {
-                    //隐藏多余的
-                    mOptionLL[i].setVisibility(View.GONE);
-                }
-
-            } else {//不是判断题
-                optionIndex = 0;
-                optionLength = options.length;
-
-                if (i < options.length) {
-                    mOptionTV[i].setText(options[i]);
-                    mOptionLL[i].setVisibility(View.VISIBLE);
-
-//                    if (state < Question.STATE2_ANSWERED) {
-                    mOptionLL[i].setClickable(true);
-//                    } else {
-//                        mOptionLL[i].setClickable(false);
-//                    }
-                } else {
-                    //隐藏多余的
-                    mOptionLL[i].setVisibility(View.GONE);
-                }
-            }
-        }
-
-        //设置选项的选中状态
-        String[] selected = curQuestion.getSelected();
-        for (int i = 0; i < selected.length; i++) {
-            if (!selected[i].isEmpty()) {
-                mOptionLL[i].setSelected(true);
-            } else {
-                mOptionLL[i].setSelected(false);
-            }
-        }
-
-        //设置确定按钮点击和样式
-//        if (state < Question.STATE2_ANSWERED) {
-        viewHolder.ensureBtnTV.setBackgroundResource(R.drawable.blue_button_slt);
-        //viewHolder.ensureBtnTV.setVisibility(View.VISIBLE);
-        viewHolder.ensureBtnTV.setVisibility(View.INVISIBLE);
-        // viewHolder.ensureBtnTV.setClickable(true);
-        viewHolder.answerLL.setVisibility(View.GONE);
-//        } else {
-//            viewHolder.ensureBtnTV.setBackgroundResource(R.drawable.button_bg_0);
-//            viewHolder.ensureBtnTV.setClickable(false);
-//            //考试模式隐藏答案
-//            viewHolder.answerLL.setVisibility(View.GONE);
-//        }
-
-        //如果不是考试模式并且已经做过，显示答案
-        if (state >= Question.STATE2_ANSWERED) {
-            checkAndShowAnswer(curQuestion, false);
-        }
+        //设置当前页
+        setCurrentQuestion(index);
+        viewHolder.mViewPager.setCurrentItem(index,false);
     }
 
-    /**
-     * 禁止选项点击
-     */
-    private void optionsClickForbidden() {
-        for (int i = 0; i < optionLength; i++) {
-            mOptionLL[optionIndex].setClickable(false);
-            optionIndex++;
-        }
-
-        viewHolder.ensureBtnTV.setBackgroundResource(R.drawable.button_bg_0);
-        viewHolder.ensureBtnTV.setClickable(false);
-    }
 
     private void getData() {
         if (isLoading) {
@@ -923,7 +926,7 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
 
             default:
                 //按下的不是以上按钮,则按下了内容页的按钮
-                dealWithOptions(view);
+//                dealWithOptions(view);
         }
 
     }
@@ -934,9 +937,7 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
         if (curIndex1 < 1) {
             ToastUtil.toastMsgShort("已到开头");
         } else {
-            curIndex1--;
-            //根据上下一题调整进度
-            dealWithIndex(curIndex1);
+            viewHolder.mViewPager.arrowScroll(1);
         }
     }
 
@@ -949,8 +950,7 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
 
         } else { //不是最后一题
 
-            curIndex1++;
-            dealWithIndex(curIndex1);
+            viewHolder.mViewPager.arrowScroll(2);
 
         }
     }
@@ -978,49 +978,20 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
 
 
     /**
-     * 选项处理
-     *
-     * @param view
-     */
-    private void dealWithOptions(View view) {
-        dealWithSelection(view);
-
-//        switch (view.getId()) {
-//
-//            case R.id.ensureBtn_tv: //确定
-//
-//                if (curQuestion.selectedToString().length() == 0) {
-//                    Toast.makeText(activityCtx, "请选择", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                //optionsClickForbidden(); //禁止点击
-//                curQuestion.setState(Question.STATE2_ANSWERED);
-//                checkAndShowAnswer(curQuestion, false);
-//
-//                break;
-//
-//            default:
-//
-//                dealWithSelection(view);
-//        }
-    }
-
-    /**
      * 选项处理，并保存
      *
      * @param view
      */
     private void dealWithSelection(View view) {
         //如果是单选，把非点中项设为不选中
-        int childCount = viewHolder.optionsLL.getChildCount();
+        int childCount = pagerHolder.optionsLL.getChildCount();
 
         for (int i = 0; i < childCount; i++) {
-            View optionView = viewHolder.optionsLL.getChildAt(i);
+            View optionView = pagerHolder.optionsLL.getChildAt(i);
 
             //如果当前没被选中，且不是多选，设为不选中
             if (view.getId() != optionView.getId() && curQuestionType != Question.TYPE_MULTIPLE) {
-                viewHolder.optionsLL.getChildAt(i).setSelected(false);
+                pagerHolder.optionsLL.getChildAt(i).setSelected(false);
                 mAnswers[i] = "";
                 //否则，被点击项状态反转
             } else if (view.getId() == optionView.getId()) {
@@ -1037,8 +1008,6 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
 
         curQuestion.setState(Question.STATE2_ANSWERED);
         checkAndShowAnswer(curQuestion, false);
-//        curQuestion.setState(Question.STATE1_DOING);
-        //showSelected();
     }
 
 
@@ -1055,22 +1024,22 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
         if (selection.isEmpty()) {
             question.setState(Question.STATE0_DEFAULT);
         } else if (selection.equalsIgnoreCase(answer)) {
-            viewHolder.answerBtnTV.setBackground(activityCtx.getResources().getDrawable(R.drawable.answer_rigth));
+            pagerHolder.answerBtnTV.setBackground(activityCtx.getResources().getDrawable(R.drawable.answer_rigth));
             question.setState(Question.STATE3_RIGHT);
         } else {
-            viewHolder.answerBtnTV.setBackground(activityCtx.getResources().getDrawable(R.drawable.answer_error));
+            pagerHolder.answerBtnTV.setBackground(activityCtx.getResources().getDrawable(R.drawable.answer_error));
             question.setState(Question.STATE3_WRONG);
         }
 
         if (question.getState() >= Question.STATE2_ANSWERED && showAnswer) {
             // viewHolder.ensureBtnTV.setVisibility(View.GONE);
-            viewHolder.answerLL.setVisibility(View.VISIBLE);
+            pagerHolder.answerLL.setVisibility(View.VISIBLE);
 
-            viewHolder.answerTV.setText("参考答案：" + answer);
-            viewHolder.explainTV.setText("题目解析：" + (question.getExplain().isEmpty() ? "略。" : question.getExplain()));
+            pagerHolder.answerTV.setText("参考答案：" + answer);
+            pagerHolder.explainTV.setText("题目解析：" + (question.getExplain().isEmpty() ? "略。" : question.getExplain()));
         } else {
             //viewHolder.ensureBtnTV.setVisibility(View.VISIBLE);
-            viewHolder.answerLL.setVisibility(View.GONE);
+            pagerHolder.answerLL.setVisibility(View.GONE);
         }
     }
 
@@ -1155,11 +1124,7 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
     //暂停时存储状态
     @Override
     public void onPause() {
-
-//        stopTimeCountDown();
-//
         saveDataToDb();
-
         super.onPause();
     }
 
@@ -1167,6 +1132,7 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
     private void saveDataToDb() {
 
         if (data != null && data.getStatus() == 200) {
+
             data.setTimeRemain(timeRemain);
             data.setCurIndex(curIndex1);
             data.setCurIndexSingle(curIndexSingle);
@@ -1180,26 +1146,7 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
 
     }
 
-    public static class ViewHolder extends ViewViewHolder {
-        // RelativeLayout tipRL;
-        TextView tipTV;
-        ProgressBar progressBar;
-
-        LinearLayout lastOneLL;
-        public LinearLayout centerButtonLL;
-
-        LinearLayout nextOneLL;
-        ImageView lastOneIV;
-        ImageView centerButtonIV;
-
-        ImageView nextOneIV;
-        TextView lastOneTV;
-        TextView centerButtonTV;
-
-        TextView nextOneTV;
-
-        LinearLayout contentLL;
-        ScrollView contentSV;
+    public class PagerHolder{
         RelativeLayout titleModelRL;
         TextView itemNumTV;//题号
         TextView itemTitleTV;//题目内容
@@ -1251,6 +1198,86 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
         TextView answerTV;
         TextView explainTV;
 
+        public PagerHolder(View v){
+            findviews(v);
+        }
+
+        private void findviews(View view){
+            titleModelRL = (RelativeLayout) view.findViewById(R.id.titleModel_rl);
+            itemNumTV = (TextView) view.findViewById(R.id.itemNum_tv);
+            itemTitleTV = (TextView) view.findViewById(R.id.itemTitle_tv);
+            itemTypeTV = (TextView) view.findViewById(R.id.itemType_tv);
+
+            optionsLL = (LinearLayout) view.findViewById(R.id.options_ll);
+
+            optionAIV = (ImageView) view.findViewById(R.id.optionA_iv);
+            optionATV = (TextView) view.findViewById(R.id.optionA_tv);
+            optionALL = (LinearLayout) view.findViewById(R.id.optionA_ll);
+
+            optionBIV = (ImageView) view.findViewById(R.id.optionB_iv);
+            optionBTV = (TextView) view.findViewById(R.id.optionB_tv);
+            optionBLL = (LinearLayout) view.findViewById(R.id.optionB_ll);
+
+            optionCIV = (ImageView) view.findViewById(R.id.optionC_iv);
+            optionCTV = (TextView) view.findViewById(R.id.optionC_tv);
+            optionCLL = (LinearLayout) view.findViewById(R.id.optionC_ll);
+
+            optionDIV = (ImageView) view.findViewById(R.id.optionD_iv);
+            optionDTV = (TextView) view.findViewById(R.id.optionD_tv);
+            optionDLL = (LinearLayout) view.findViewById(R.id.optionD_ll);
+
+            optionEIV = (ImageView) view.findViewById(R.id.optionE_iv);
+            optionETV = (TextView) view.findViewById(R.id.optionE_tv);
+            optionELL = (LinearLayout) view.findViewById(R.id.optionE_ll);
+
+            optionFIV = (ImageView) view.findViewById(R.id.optionF_iv);
+            optionFTV = (TextView) view.findViewById(R.id.optionF_tv);
+            optionFLL = (LinearLayout) view.findViewById(R.id.optionF_ll);
+
+            optionGIV = (ImageView) view.findViewById(R.id.optionG_iv);
+            optionGTV = (TextView) view.findViewById(R.id.optionG_tv);
+            optionGLL = (LinearLayout) view.findViewById(R.id.optionG_ll);
+
+            optionTrueIV = (ImageView) view.findViewById(R.id.optionTrue_iv);
+            optionTrueTV = (TextView) view.findViewById(R.id.optionTrue_tv);
+            optionTrueLL = (LinearLayout) view.findViewById(R.id.optionTrue_ll);
+
+            optionFalseIV = (ImageView) view.findViewById(R.id.optionFalse_iv);
+            optionFalseTV = (TextView) view.findViewById(R.id.optionFalse_tv);
+            optionFalseLL = (LinearLayout) view.findViewById(R.id.optionFalse_ll);
+
+            ensureBtnTV = (TextView) view.findViewById(R.id.ensureBtn_tv);
+            answerLL = (LinearLayout) view.findViewById(R.id.answer_ll);
+            answerBtnTV = (TextView) view.findViewById(R.id.answerBtn_tv);
+            answerTV = (TextView) view.findViewById(R.id.answer_tv);
+            explainTV = (TextView) view.findViewById(R.id.explain_tv);
+        }
+
+    }
+
+
+    public static class ViewHolder extends ViewViewHolder {
+        // RelativeLayout tipRL;
+        TextView tipTV;
+        ProgressBar progressBar;
+        ViewPager mViewPager;
+
+        LinearLayout lastOneLL;
+        public LinearLayout centerButtonLL;
+
+        LinearLayout nextOneLL;
+        ImageView lastOneIV;
+        ImageView centerButtonIV;
+
+        ImageView nextOneIV;
+        TextView lastOneTV;
+        TextView centerButtonTV;
+
+        TextView nextOneTV;
+
+        LinearLayout contentLL;
+        ScrollView contentSV;
+
         LinearLayout navCardLL;
         ListView navCardLV;
 
@@ -1266,6 +1293,7 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
          * 初始化布局控件,比注解节省系统开销
          */
         protected void findViews() {
+            mViewPager = $(R.id.viewPager);
             lastOneLL = $(R.id.lastOne_ll);
             centerButtonLL = $(R.id.centerButton_ll);
             nextOneLL = $(R.id.nextOne_ll);
@@ -1284,55 +1312,6 @@ public class ExamContentFragment extends BackHandledFragment implements View.OnC
 
             contentLL = $(R.id.content_ll);
             contentSV = $(R.id.content_sv);
-
-            titleModelRL = $(R.id.titleModel_rl);
-            itemNumTV = $(R.id.itemNum_tv);
-            itemTitleTV = $(R.id.itemTitle_tv);
-            itemTypeTV = $(R.id.itemType_tv);
-
-            optionsLL = $(R.id.options_ll);
-
-            optionAIV = $(R.id.optionA_iv);
-            optionATV = $(R.id.optionA_tv);
-            optionALL = $(R.id.optionA_ll);
-
-            optionBIV = $(R.id.optionB_iv);
-            optionBTV = $(R.id.optionB_tv);
-            optionBLL = $(R.id.optionB_ll);
-
-            optionCIV = $(R.id.optionC_iv);
-            optionCTV = $(R.id.optionC_tv);
-            optionCLL = $(R.id.optionC_ll);
-
-            optionDIV = $(R.id.optionD_iv);
-            optionDTV = $(R.id.optionD_tv);
-            optionDLL = $(R.id.optionD_ll);
-
-            optionEIV = $(R.id.optionE_iv);
-            optionETV = $(R.id.optionE_tv);
-            optionELL = $(R.id.optionE_ll);
-
-            optionFIV = $(R.id.optionF_iv);
-            optionFTV = $(R.id.optionF_tv);
-            optionFLL = $(R.id.optionF_ll);
-
-            optionGIV = $(R.id.optionG_iv);
-            optionGTV = $(R.id.optionG_tv);
-            optionGLL = $(R.id.optionG_ll);
-
-            optionTrueIV = $(R.id.optionTrue_iv);
-            optionTrueTV = $(R.id.optionTrue_tv);
-            optionTrueLL = $(R.id.optionTrue_ll);
-
-            optionFalseIV = $(R.id.optionFalse_iv);
-            optionFalseTV = $(R.id.optionFalse_tv);
-            optionFalseLL = $(R.id.optionFalse_ll);
-
-            ensureBtnTV = $(R.id.ensureBtn_tv);
-            answerLL = $(R.id.answer_ll);
-            answerBtnTV = $(R.id.answerBtn_tv);
-            answerTV = $(R.id.answer_tv);
-            explainTV = $(R.id.explain_tv);
 
             navCardLL = $(R.id.navCard_ll);
             navCardLV = $(R.id.navCard_lv);

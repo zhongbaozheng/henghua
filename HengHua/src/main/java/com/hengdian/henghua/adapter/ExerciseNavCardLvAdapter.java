@@ -30,6 +30,7 @@ public class ExerciseNavCardLvAdapter extends BaseAdapter {
     public List<Question> multipleList;
     public List<Question> trueOrFalseList;
     public List<List> mList;
+    public ExerciseNavCardGvAdapter exerciseNavCardGvAdapter;
 
 
     public ExerciseNavCardLvAdapter(Context ctx, ExerciseContentFragment fragment, List<Question> singleList, List<Question> multipleList, List<Question> trueOrFalseList) {
@@ -82,7 +83,7 @@ public class ExerciseNavCardLvAdapter extends BaseAdapter {
                         viewHolder.questionTypeTitle.setText("单选题");
                         viewHolder.questionTypeTitle.setVisibility(View.VISIBLE);
 
-                        ExerciseNavCardGvAdapter exerciseNavCardGvAdapter = new ExerciseNavCardGvAdapter(ctx, singleList);
+                         exerciseNavCardGvAdapter = new ExerciseNavCardGvAdapter(ctx, singleList);
 //                        setGridViewHeightBasedOnChildren(viewHolder.navCardGridView); //去掉这一行代码
                         viewHolder.navCardGridView.setAdapter(exerciseNavCardGvAdapter);
                     }
@@ -95,7 +96,7 @@ public class ExerciseNavCardLvAdapter extends BaseAdapter {
                         viewHolder.questionTypeTitle.setText("多选题");
                         viewHolder.questionTypeTitle.setVisibility(View.VISIBLE);
 
-                        ExerciseNavCardGvAdapter exerciseNavCardGvAdapter = new ExerciseNavCardGvAdapter(ctx, multipleList);
+                        exerciseNavCardGvAdapter = new ExerciseNavCardGvAdapter(ctx, multipleList);
                         setGridViewHeightBasedOnChildren(viewHolder.navCardGridView);
                         viewHolder.navCardGridView.setAdapter(exerciseNavCardGvAdapter);
                     }
@@ -108,7 +109,7 @@ public class ExerciseNavCardLvAdapter extends BaseAdapter {
                         viewHolder.questionTypeTitle.setText("判断题");
                         viewHolder.questionTypeTitle.setVisibility(View.VISIBLE);
 
-                        ExerciseNavCardGvAdapter exerciseNavCardGvAdapter = new ExerciseNavCardGvAdapter(ctx, trueOrFalseList);
+                        exerciseNavCardGvAdapter = new ExerciseNavCardGvAdapter(ctx, trueOrFalseList);
                         setGridViewHeightBasedOnChildren(viewHolder.navCardGridView);
                         viewHolder.navCardGridView.setAdapter(exerciseNavCardGvAdapter);
                     }

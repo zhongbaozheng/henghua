@@ -48,6 +48,7 @@ public class PagerScrollAdapter extends PagerAdapter {
     //初始化view
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        Log.e("position",position+"");
         container.addView(mListView.get(position),0);
          TextView item_tv = (TextView)container.findViewById(R.id.itemNum_tv);
         item_tv.setText(""+(position+1));

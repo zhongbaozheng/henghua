@@ -164,7 +164,6 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
                     viewHolder.mViewPager.setAdapter(mAdapter);
                     //设置滑动监听，判断是左还是右
                     viewHolder.mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                        private int current = 0;
                         @Override
                         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

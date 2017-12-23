@@ -28,6 +28,7 @@ public class ExamNavCardLvAdapter extends BaseAdapter {
     public List<Question> multipleList;
     public List<Question> trueOrFalseList;
     public List<List> mList;
+    public ExamNavCardGvAdapter examNavCardGvAdapter;
 
 
     public ExamNavCardLvAdapter(Context ctx, List<Question> singleList, List<Question> multipleList, List<Question> trueOrFalseList) {
@@ -77,7 +78,7 @@ public class ExamNavCardLvAdapter extends BaseAdapter {
                 viewHolder.questionTypeTitle.setVisibility(View.VISIBLE);
                 viewHolder.questionTypeTitle.setText("单选题");
 
-                ExamNavCardGvAdapter examNavCardGvAdapter = new ExamNavCardGvAdapter(ctx, singleList);
+                examNavCardGvAdapter = new ExamNavCardGvAdapter(ctx, singleList);
 //                setGridViewHeightBasedOnChildren(viewHolder.navCardGridView); //去掉这行代码
                 viewHolder.navCardGridView.setAdapter(examNavCardGvAdapter);
             }

@@ -29,6 +29,7 @@ public class StageNavCardLvAdapter extends BaseAdapter {
     public List<Question> multipleList;
     public List<Question> trueOrFalseList;
     public List<List> mList;
+    public StageNavCardGvAdapter stageNavCardGvAdapter;
 
 
     public StageNavCardLvAdapter(Context ctx, List<Question> singleList, List<Question> multipleList, List<Question> trueOrFalseList) {
@@ -79,7 +80,7 @@ public class StageNavCardLvAdapter extends BaseAdapter {
                 viewHolder.questionTypeTitle.setVisibility(View.VISIBLE);
                 viewHolder.questionTypeTitle.setText("单选题");
 
-                StageNavCardGvAdapter stageNavCardGvAdapter = new StageNavCardGvAdapter(ctx, singleList);
+                stageNavCardGvAdapter = new StageNavCardGvAdapter(ctx, singleList);
                 setGridViewHeightBasedOnChildren(viewHolder.navCardGridView);
                 viewHolder.navCardGridView.setAdapter(stageNavCardGvAdapter);
             }

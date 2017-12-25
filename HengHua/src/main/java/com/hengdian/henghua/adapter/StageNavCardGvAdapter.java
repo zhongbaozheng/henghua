@@ -2,6 +2,7 @@ package com.hengdian.henghua.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ public class StageNavCardGvAdapter extends BaseAdapter {
 
 
     @Override
-    public View getView(int i, View convertView, ViewGroup parent) {
+    public View getView(final int i, View convertView, ViewGroup parent) {
 
         ViewHolder viewHolder;
         if (convertView == null) {
@@ -71,6 +72,7 @@ public class StageNavCardGvAdapter extends BaseAdapter {
         }
 
         Question question = mQuestionList.get(i);
+        Log.e("i",i+"");
         int questionState = question.getState();
         int questionType = question.getType();
 
@@ -81,7 +83,7 @@ public class StageNavCardGvAdapter extends BaseAdapter {
         } else if (questionType == Question.TYPE_TRUE_FALSE) {
             questionIndex = i + stageContentFrag.sizeSingle + stageContentFrag.sizeMultiple + 1;
         }
-
+//        Log.e("questionIndex",questionIndex+"");
 
         String questionNum = GadgetUtil.formatItemNum(questionIndex);
         if (questionState == Question.STATE0_DEFAULT) {
@@ -97,7 +99,6 @@ public class StageNavCardGvAdapter extends BaseAdapter {
 
         viewHolder.navCardNum.setText(questionNum);
 
-        final int index = i;
         viewHolder.navCardNum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,49 +107,32 @@ public class StageNavCardGvAdapter extends BaseAdapter {
                     return;
                 }
 
-                int indexTmp = 0;
                 //设置当前的题号，并刷新
-                switch (mQuestionList.get(index).getType()) {
+                switch (mQuestionList.get(i).getType()) {
                     case Question.TYPE_SINGLE:
-                        indexTmp = stageContentFrag.curIndex1;
+                        stageContentFrag.curIndex1 = i;
                         break;
 
                     case Question.TYPE_MULTIPLE:
-                        indexTmp = stageContentFrag.curIndex1 - stageContentFrag.sizeSingle;
+                        stageContentFrag.curIndex1 = i + stageContentFrag.sizeSingle;
                         break;
 
                     case Question.TYPE_TRUE_FALSE:
-                        indexTmp = stageContentFrag.curIndex1 - stageContentFrag.sizeSingle - stageContentFrag.sizeMultiple;
+                        stageContentFrag.curIndex1 = i + stageContentFrag.sizeSingle + stageContentFrag.sizeMultiple;
                         break;
                 }
-
-                int tmpIndex = index > 0 ? index - 1 : 0;
-                if (mQuestionList.get(tmpIndex).getState() < Question.STATE2_ANSWERED && index != 0) {
+                if (mQuestionList.get(i).getState() < Question.STATE2_ANSWERED && mQuestionList.get(i-1).getState()<Question.STATE2_ANSWERED) {
                     ToastUtil.toastMsgShort("请先解答前面的试题");
                     return;
+                }else{
+                    //设置答题卡 状态
+                    stageContentFrag.showNavCard(false);
+                    //回顾试题按钮状态
+                    stageContentFrag.viewHolder.centerButtonLL.setSelected(false);
+                    stageContentFrag.dealWithIndex(stageContentFrag.curIndex1);
                 }
 
-                //设置答题卡 状态
-                stageContentFrag.showNavCard(false);
-                //回顾试题按钮状态
-                stageContentFrag.viewHolder.centerButtonLL.setSelected(false);
 
-                //设置当前的题号，并刷新
-                switch (mQuestionList.get(index).getType()) {
-                    case Question.TYPE_SINGLE:
-                        stageContentFrag.curIndex1 = index;
-                        break;
-
-                    case Question.TYPE_MULTIPLE:
-                        stageContentFrag.curIndex1 = index + stageContentFrag.sizeSingle;
-                        break;
-
-                    case Question.TYPE_TRUE_FALSE:
-                        stageContentFrag.curIndex1 = index + stageContentFrag.sizeSingle + stageContentFrag.sizeMultiple;
-                        break;
-                }
-
-                stageContentFrag.dealWithIndex(stageContentFrag.curIndex1);
 
             }
         });

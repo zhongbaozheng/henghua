@@ -1,5 +1,7 @@
 package com.hengdian.henghua.utils;
 
+import android.util.Log;
+
 import com.hengdian.henghua.androidUtil.LogUtil;
 import com.hengdian.henghua.model.NameValuePair;
 
@@ -103,7 +105,7 @@ public class HttpUtil {
                 pos++;
             }
             String params = sbd.toString();
-            LogUtil.d(TAG, "Param: " + params);
+            Log.e(TAG, "Param: " + params);
 
             //生成请求体
             RequestBody rqstBody = RequestBody.create(MEDIA_TYPE_ENCODED, params);

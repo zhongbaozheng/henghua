@@ -81,7 +81,7 @@ public class StageNavCardLvAdapter extends BaseAdapter {
                 viewHolder.questionTypeTitle.setText("单选题");
 
                 stageNavCardGvAdapter = new StageNavCardGvAdapter(ctx, singleList);
-                setGridViewHeightBasedOnChildren(viewHolder.navCardGridView);
+//                setGridViewHeightBasedOnChildren(viewHolder.navCardGridView);
                 viewHolder.navCardGridView.setAdapter(stageNavCardGvAdapter);
             }
         }
@@ -94,7 +94,7 @@ public class StageNavCardLvAdapter extends BaseAdapter {
                 viewHolder.questionTypeTitle.setText("多选题");
 
                 StageNavCardGvAdapter stageNavCardGvAdapter = new StageNavCardGvAdapter(ctx, multipleList);
-                setGridViewHeightBasedOnChildren(viewHolder.navCardGridView);
+//                setGridViewHeightBasedOnChildren(viewHolder.navCardGridView);
                 viewHolder.navCardGridView.setAdapter(stageNavCardGvAdapter);
             }
         }

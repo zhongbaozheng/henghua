@@ -6,6 +6,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,8 +33,10 @@ import com.hengdian.henghua.androidUtil.LogUtil;
 import com.hengdian.henghua.androidUtil.MyApplication;
 import com.hengdian.henghua.androidUtil.NetUtil;
 import com.hengdian.henghua.androidUtil.OtsUtil;
+import com.hengdian.henghua.androidUtil.SharePerferenceUtil;
 import com.hengdian.henghua.androidUtil.ToastUtil;
 import com.hengdian.henghua.model.contentDataModel.ChapterContent;
+import com.hengdian.henghua.model.contentDataModel.Question;
 import com.hengdian.henghua.model.contentDataModel.Rs_CW_ChapterContents;
 import com.hengdian.henghua.utils.Constant;
 import com.hengdian.henghua.utils.DataRequestUtil;
@@ -50,7 +55,6 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
     //private SpannableString SpannableStr;
     ContentActivity activity;
     public ViewHolder viewHolder;
-    private boolean  is_clean = false;
     public List<View> mListView = new ArrayList<>();
     private PagerScrollAdapter mAdapter;
 
@@ -102,12 +106,8 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
                             public void onClick(DialogInterface dialog, int which) {
                                 RefreshHolder.REVIEW_CONTENT = RefreshHolder.REFRESH_NET;
                                 getData();
-                                is_clean = true;
-                                dialog.cancel();
-                                //进度更新的同时，关闭界面，通过onPause()保存数据，并退出返回主界面
                                 onPause();
-                                getActivity().finish();
-                                ToastUtil.toastMsgShort("进度已更新！");
+                                dialog.cancel();
                             }
                         }
                 )
@@ -126,6 +126,7 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = (ContentActivity) getActivity();
+
     }
 
 
@@ -154,7 +155,7 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
                     curIndex1 = data.curIndex;
                     chapterContentList = data.getChapterContentList();
 
-                    // //组装view，再到Adapter组装数据
+                    //组装view，再到Adapter组装数据
                     mAdapter = new PagerScrollAdapter(activityCtx,chapterContentList,mListView);
                     for(int i=0;i<data.getChapterContentList().size();i++){
                         View v = View.inflate(activityCtx,R.layout.review_scroll_pager,null);
@@ -162,7 +163,6 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
                     }
 
                     viewHolder.mViewPager.setAdapter(mAdapter);
-                    //设置滑动监听，判断是左还是右
                     viewHolder.mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                         @Override
                         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -172,7 +172,7 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
                         @Override
                         public void onPageSelected(int position) {
                             curIndex1 = position;
-                            setViewData(data.getChapterContentList(),position);
+                            setViewData(data.getChapterContentList(),curIndex1);
                             //更新我们列表的item
                             if(isNavCardShowed){
                                 navCardLvAdapter.notifyDataSetChanged();
@@ -226,9 +226,7 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
 
         curContent = listData.get(index);
         curContent.isShow = true;
-
         curContent.setState(ChapterContent.STATE1_READING);
-
         viewHolder.mViewPager.setCurrentItem(index);
 
     }
@@ -407,8 +405,6 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
             }
         });
 
-//        activity.viewHolder.questionTypeChooserLO.setVisibility(View.INVISIBLE);
-
     }
 
     /**
@@ -435,22 +431,6 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
         }
 
         activity.viewHolder.backIV.setOnClickListener(this);
-
-//        viewHolder.contentSV.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                int direct = UIUtil.getTouchDirection(event, 50);
-//                if (direct == UIUtil.TOUCH_LEFT) {
-//                    goForward();
-//
-//                } else if (direct == UIUtil.TOUCH_RIGHT) {
-//                    backForward();
-//                }
-//
-//                return false;
-//            }
-//        });
-
 
         initTopBar();
         initBottomButton();
@@ -482,9 +462,13 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
     public void onPause() {
 
         if (data != null && data.getStatus() == 200) {
-            Log.e("curIndex1",curIndex1+"");
+
             data.setCurIndex(curIndex1);
-            if (!is_clean){
+            if(chapterContentList.get(0).getState()== ChapterContent.STATE1_READING
+                    && chapterContentList.get(1).getState() == ChapterContent.STATE0_DEFAULT){
+                //
+            }else{
+                //当阅读到第二页才会保存页面进度，否则不保存
                 new DBUtil(activityCtx).saveReviewContent(bookID, chapterID, data);
             }
 
@@ -516,10 +500,6 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
 
         LinearLayout contentLL;
         ScrollView contentSV;
-
-//        TextView itemNumTV;
-//        TextView itemTitleTV;
-//        TextView contentTV;
 
         LinearLayout navCardLL;
         ListView navCardLV;
@@ -556,15 +536,8 @@ public class ReviewContentFragment extends BaseFragment implements View.OnClickL
             contentLL = (LinearLayout) view.findViewById(R.id.content_ll);
             contentSV = (ScrollView) view.findViewById(R.id.content_sv);
 
-//            itemNumTV = (TextView) view.findViewById(R.id.itemNum_tv);
-//            itemTitleTV = (TextView) view.findViewById(R.id.itemTitle_tv);
-//            itemTitleTV.setVisibility(View.GONE);
-//            contentTV = (TextView) view.findViewById(R.id.content_tv);
-
             navCardLL = (LinearLayout) view.findViewById(R.id.navCard_ll);
             navCardLV = (ListView) view.findViewById(R.id.navCard_lv);
-            //需要变
-//            showGroup = new View[]{progressBar, tipTV, contentLL};
             showGroup = new View[]{progressBar,tipTV,contentLL};
 
             navCardLL.setOnTouchListener(new View.OnTouchListener() {

@@ -1,6 +1,7 @@
 package com.hengdian.henghua.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hengdian.henghua.androidUtil.SharePerferenceUtil;
 import com.hengdian.henghua.utils.Constant;
 
 /**
@@ -23,7 +25,7 @@ public abstract class BaseFragment extends Fragment {
     public boolean isLoading = false;//是否正在加载/请求数据
 
     public String fromTag = "";//来源标志
-    public String chapterID = ""; //章节ID
+    public String chapterID = ""; //章节ID           //一进来就记录当前的章节ID
     public String chapterName = "";
     public String bookID = ""; //教材ID
     public String bookName = "";
@@ -51,10 +53,17 @@ public abstract class BaseFragment extends Fragment {
 
         activityCtx = getActivity();
         mArguments = getArguments();
+        SharePerferenceUtil.register(activityCtx);
 
         initJumpIndex();
+        initChapterId();
 
     }
+
+    public void initChapterId(){}
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

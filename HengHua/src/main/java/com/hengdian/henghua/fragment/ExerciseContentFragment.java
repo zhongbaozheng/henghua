@@ -459,73 +459,6 @@ public class ExerciseContentFragment extends BaseFragment implements View.OnClic
         Log.e("index",listIndex+"");
         //将下面的内容设置进去
         viewHolder.mViewPager.setCurrentItem(listIndex,false); //设置当前页的viewPager 2017/12/20 15:43
-
-
-        //题号
-//        String questionNum = GadgetUtil.formatItemNum(listIndex + 1); //题号跟脚标差别
-//        viewHolder.itemNumTV.setText(questionNum);
-//        viewHolder.itemTypeTV.setText(curQuestion.getQuestionTypeName());
-//        viewHolder.itemTitleTV.setText(curQuestion.getQuestionContent() + " (" + curQuestion.getScore() + "分)");
-//        viewHolder.titleModelRL.setVisibility(View.VISIBLE);
-//
-//        String[] options = curQuestion.getOptions();
-//        //显示对应数量选项
-//        for (int i = 0; i < mOptionLL.length; i++) {
-//            //初始化
-//            mOptionLL[i].setSelected(false);
-//
-//            if (curQuestionType == Question.TYPE_TRUE_FALSE) {
-//                optionIndex = mOptionLlLength - 2;
-//                optionLength = 2;
-//
-//                //设置判断题选项
-//                if (i == mOptionLlLength - 2) {
-//
-//                    //对,倒2
-//                    mOptionTV[i].setText(options[0]);
-//                    mOptionLL[i].setVisibility(View.VISIBLE);
-//
-//                } else if (i == mOptionLL.length - 1) {
-//                    //倒1
-//                    mOptionTV[i].setText(options[1]);
-//                    mOptionLL[i].setVisibility(View.VISIBLE);
-//
-//                } else {
-//                    //隐藏多余的
-//                    mOptionLL[i].setVisibility(View.GONE);
-//                }
-//
-//            } else {//不是判断题
-//                optionIndex = 0;
-//                optionLength = options.length;
-//
-//                if (i < options.length) {
-//                    mOptionTV[i].setText(options[i]);
-//                    mOptionLL[i].setVisibility(View.VISIBLE);
-//
-//                } else {
-//                    //隐藏多余的
-//                    mOptionLL[i].setVisibility(View.GONE);
-//                }
-//            }
-//        }
-//
-//        //设置选项的选中状态
-//        mAnswers = curQuestion.getSelected();
-//
-//        for (int i = 0; i < mAnswers.length; i++) {
-//            if (!mAnswers[i].isEmpty()) {
-//                mOptionLL[i].setSelected(true);
-//            } else {
-//                mOptionLL[i].setSelected(false);
-//            }
-//        }
-//
-//        if (curQuestion.showAnswer) {
-//            dealWithAnswerText(curQuestion, true);
-//        } else {
-//            dealWithAnswerText(curQuestion, false);
-//        }
     }
 
 
@@ -1193,57 +1126,6 @@ public class ExerciseContentFragment extends BaseFragment implements View.OnClic
         LinearLayout contentLL;
         ScrollView contentSV;
 
-//        RelativeLayout titleModelRL;
-//        TextView itemNumTV;//题号
-//        TextView itemTitleTV;//题目内容
-//        TextView itemTypeTV;//题型
-//
-//        LinearLayout optionsLL;
-//
-//        ImageView optionAIV;
-//        TextView optionATV;
-//        LinearLayout optionALL;
-//
-//        ImageView optionBIV;
-//        TextView optionBTV;
-//        LinearLayout optionBLL;
-//
-//        ImageView optionCIV;
-//        TextView optionCTV;
-//        LinearLayout optionCLL;
-//
-//        ImageView optionDIV;
-//        TextView optionDTV;
-//        LinearLayout optionDLL;
-//
-//        ImageView optionEIV;
-//        TextView optionETV;
-//        LinearLayout optionELL;
-//
-//        ImageView optionFIV;
-//        TextView optionFTV;
-//        LinearLayout optionFLL;
-//
-//        ImageView optionGIV;
-//        TextView optionGTV;
-//        LinearLayout optionGLL;
-//
-//
-//        ImageView optionTrueIV;
-//        TextView optionTrueTV;
-//        LinearLayout optionTrueLL;
-//
-//        ImageView optionFalseIV;
-//        TextView optionFalseTV;
-//        LinearLayout optionFalseLL;
-//
-//        TextView ensureBtnTV;
-//
-//        LinearLayout answerLL;
-//        TextView answerBtnTV;
-//        TextView answerTV;
-//        TextView explainTV;
-
         LinearLayout navCardLL;
         TextView navCardTitleTV;
         ListView navCardLV;
@@ -1279,55 +1161,6 @@ public class ExerciseContentFragment extends BaseFragment implements View.OnClic
 
             contentLL = (LinearLayout) view.findViewById(R.id.content_ll);
             contentSV = (ScrollView) view.findViewById(R.id.content_sv);
-
-//            titleModelRL = (RelativeLayout) view.findViewById(R.id.titleModel_rl);
-//            itemNumTV = (TextView) view.findViewById(R.id.itemNum_tv);
-//            itemTitleTV = (TextView) view.findViewById(R.id.itemTitle_tv);
-//            itemTypeTV = (TextView) view.findViewById(R.id.itemType_tv);
-//
-//            optionsLL = (LinearLayout) view.findViewById(R.id.options_ll);
-//
-//            optionAIV = (ImageView) view.findViewById(R.id.optionA_iv);
-//            optionATV = (TextView) view.findViewById(R.id.optionA_tv);
-//            optionALL = (LinearLayout) view.findViewById(R.id.optionA_ll);
-//
-//            optionBIV = (ImageView) view.findViewById(R.id.optionB_iv);
-//            optionBTV = (TextView) view.findViewById(R.id.optionB_tv);
-//            optionBLL = (LinearLayout) view.findViewById(R.id.optionB_ll);
-//
-//            optionCIV = (ImageView) view.findViewById(R.id.optionC_iv);
-//            optionCTV = (TextView) view.findViewById(R.id.optionC_tv);
-//            optionCLL = (LinearLayout) view.findViewById(R.id.optionC_ll);
-//
-//            optionDIV = (ImageView) view.findViewById(R.id.optionD_iv);
-//            optionDTV = (TextView) view.findViewById(R.id.optionD_tv);
-//            optionDLL = (LinearLayout) view.findViewById(R.id.optionD_ll);
-//
-//            optionEIV = (ImageView) view.findViewById(R.id.optionE_iv);
-//            optionETV = (TextView) view.findViewById(R.id.optionE_tv);
-//            optionELL = (LinearLayout) view.findViewById(R.id.optionE_ll);
-//
-//            optionFIV = (ImageView) view.findViewById(R.id.optionF_iv);
-//            optionFTV = (TextView) view.findViewById(R.id.optionF_tv);
-//            optionFLL = (LinearLayout) view.findViewById(R.id.optionF_ll);
-//
-//            optionGIV = (ImageView) view.findViewById(R.id.optionG_iv);
-//            optionGTV = (TextView) view.findViewById(R.id.optionG_tv);
-//            optionGLL = (LinearLayout) view.findViewById(R.id.optionG_ll);
-//
-//            optionTrueIV = (ImageView) view.findViewById(R.id.optionTrue_iv);
-//            optionTrueTV = (TextView) view.findViewById(R.id.optionTrue_tv);
-//            optionTrueLL = (LinearLayout) view.findViewById(R.id.optionTrue_ll);
-//
-//            optionFalseIV = (ImageView) view.findViewById(R.id.optionFalse_iv);
-//            optionFalseTV = (TextView) view.findViewById(R.id.optionFalse_tv);
-//            optionFalseLL = (LinearLayout) view.findViewById(R.id.optionFalse_ll);
-//
-//            ensureBtnTV = (TextView) view.findViewById(R.id.ensureBtn_tv);
-//            answerLL = (LinearLayout) view.findViewById(R.id.answer_ll);
-//            answerBtnTV = (TextView) view.findViewById(R.id.answerBtn_tv);
-//            answerTV = (TextView) view.findViewById(R.id.answer_tv);
-//            explainTV = (TextView) view.findViewById(R.id.explain_tv);
 
             navCardLL = (LinearLayout) view.findViewById(R.id.navCard_ll);
             navCardTitleTV = (TextView) view.findViewById(R.id.navCardTitle_tv);

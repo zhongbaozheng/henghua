@@ -3,9 +3,12 @@ package com.hengdian.henghua.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -33,9 +36,12 @@ import com.hengdian.henghua.androidUtil.LogUtil;
 import com.hengdian.henghua.androidUtil.MyApplication;
 import com.hengdian.henghua.androidUtil.NetUtil;
 import com.hengdian.henghua.androidUtil.OtsUtil;
+import com.hengdian.henghua.androidUtil.SharePerferenceUtil;
 import com.hengdian.henghua.androidUtil.ToastUtil;
+import com.hengdian.henghua.model.contentDataModel.Book;
 import com.hengdian.henghua.model.contentDataModel.Question;
 import com.hengdian.henghua.model.contentDataModel.Rs_Questions_NotGroup;
+import com.hengdian.henghua.utils.Config;
 import com.hengdian.henghua.utils.Constant;
 import com.hengdian.henghua.utils.DataRequestUtil;
 import com.hengdian.henghua.utils.GadgetUtil;
@@ -92,10 +98,17 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         activity = (ContentActivity) getActivity();
     }
 
+    //获取当前的chapterID
+    @Override
+    public void initChapterId() {
+        super.initChapterId();
+        if(chapterID == ""){
+            chapterID = SharePerferenceUtil.getString("chapterID");
+        }
+    }
 
     /**
      * 设置状态栏
@@ -136,52 +149,8 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
         activity.viewHolder.backIV.setOnClickListener(this);
         activity.viewHolder.commitTV.setOnClickListener(this);
 
-//        viewHolder.flapperTV.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//
-//                return false;
-//            }
-//        });
-
-//        viewHolder.contentSV.setOnTouchListener( new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                int direct = UIUtil.getTouchDirection(event, 50);
-//                if (direct == UIUtil.TOUCH_LEFT) {
-//                    goForward();
-//
-//                } else if (direct == UIUtil.TOUCH_RIGHT) {
-//                    backForward();
-//                }
-//
-//                return false;
-//            }
-//        });
-
-
-//        //选项布局
-//        mOptionLL = new LinearLayout[]{viewHolder.optionALL,
-//                viewHolder.optionBLL, viewHolder.optionCLL, viewHolder.optionDLL, viewHolder.optionELL
-//                , viewHolder.optionFLL, viewHolder.optionGLL, viewHolder.optionTrueLL, viewHolder.optionFalseLL};
-//
-//        mOptionLlLength = mOptionLL.length;
-//
-//        //选项文字
-//        mOptionTV = new TextView[]{viewHolder.optionATV, viewHolder.optionBTV,
-//                viewHolder.optionCTV, viewHolder.optionDTV, viewHolder.optionETV, viewHolder.optionFalseTV
-//                , viewHolder.optionGTV, viewHolder.optionTrueTV, viewHolder.optionFalseTV};
-
-
         initTopBar();
         initBottomButton();
-
-//        for (int i = 0; i < mOptionLL.length; i++) {
-//            mOptionLL[i].setOnClickListener(this);
-//        }
-//
-//        viewHolder.ensureBtnTV.setOnClickListener(this);
-
         return rootView;
     }
 
@@ -276,7 +245,7 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
                                 current = position;
                                 //右滑动就设置检测当前的监听，左滑就不用,可以回溯上一题
                                 //设置currentIndex
-                                if (curQuestion.getState() < Question.STATE2_ANSWERED) {
+                                if (curQuestion.getState() < Question.STATE2_ANSWERED && mQuestionList.get(position-1).getState()<Question.STATE2_ANSWERED) {
                                     ToastUtil.toastMsgShort("请先解答当前试题");
                                 }else {
                                     curIndex1 = position;
@@ -483,40 +452,6 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
 
         setContent(index,mQuestionList);
 
-//        //判断题型范围
-//        if (index < sizeSingle) { //单选
-//
-//            curIndexSingle = index;
-//            setContent(index, curIndexSingle, singleList);
-//
-//        } else if (index < sizeSingle + sizeMultiple) {   //多选
-//
-//            curIndexMultiple = index - sizeSingle;
-//            setContent(index, curIndexMultiple, multipleList);
-//
-//        } else { //判断
-//
-//            if (data != null && index >= data.getQuestionList().size()) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(activityCtx);
-//                builder.setTitle("恭喜你，闯关成功！")
-//                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-//
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        dialog.dismiss();
-//                                        activity.onBackPressed();
-//                                    }
-//                                }
-//                        )
-//                        .show();
-//                return;
-//            }
-//
-//            curIndexTrueFalse = index - sizeSingle - sizeMultiple;
-//            setContent(index, curIndexTrueFalse, trueOrFalseList);
-//
-//        }
-
     }
 
 
@@ -534,17 +469,6 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
 
             viewHolder.tipTV.setText("没有内容...");
             OtsUtil.windowShow(viewHolder.showGroup, OtsUtil.SHOW_TEXT_TIP);
-
-//            //隐藏题目内容布局
-//            viewHolder.itemNumTV.setText("");
-//            viewHolder.itemTitleTV.setText("");
-//            viewHolder.itemTitleTV.setText("");
-//
-//            for (int i = 0; i < mOptionLL.length; i++) {
-//                mOptionLL[i].setVisibility(View.INVISIBLE);
-//                mOptionTV[i].setText("");
-//            }
-
             return;
         }
 
@@ -564,92 +488,6 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
         mAnswers = curQuestion.getSelected();
         viewHolder.mViewPager.setCurrentItem(index);
         setCurrentQuestion(index);
-
-
-//        //题号
-//        String questionNum = GadgetUtil.formatItemNum(index + 1); //题号跟脚标差别
-//        viewHolder.itemNumTV.setText(questionNum);
-//        viewHolder.itemTypeTV.setText(curQuestion.getQuestionTypeName());
-//        viewHolder.itemTitleTV.setText(curQuestion.getQuestionContent() + " (" + curQuestion.getScore() + "分)");
-//        viewHolder.titleModelRL.setVisibility(View.VISIBLE);
-//
-//        int state = curQuestion.getState();
-//
-//        String[] options = curQuestion.getOptions();
-//        //显示对应数量选项
-//        for (int i = 0; i < mOptionLL.length; i++) {
-//            //初始化
-//            mOptionLL[i].setSelected(false);
-//
-//            if (curQuestionType == Question.TYPE_TRUE_FALSE) {
-//                optionIndex = mOptionLlLength - 2;
-//                optionLength = 2;
-//
-//                //设置判断题选项
-//                if (i == mOptionLlLength - 2) {
-//
-//                    //对,倒2
-//                    mOptionTV[i].setText(options[0]);
-//                    mOptionLL[i].setVisibility(View.VISIBLE);
-//
-//                    if (state < Question.STATE2_ANSWERED) {
-//                        mOptionLL[i].setClickable(true);
-//                    } else {
-//                        mOptionLL[i].setClickable(false);
-//                    }
-//                } else if (i == mOptionLL.length - 1) {
-//                    //倒1
-//                    mOptionTV[i].setText(options[1]);
-//                    mOptionLL[i].setVisibility(View.VISIBLE);
-//
-//                    if (state < Question.STATE2_ANSWERED) {
-//                        mOptionLL[i].setClickable(true);
-//                    } else {
-//                        mOptionLL[i].setClickable(false);
-//                    }
-//                } else {
-//                    //隐藏多余的
-//                    mOptionLL[i].setVisibility(View.GONE);
-//                }
-//
-//            } else {//不是判断题
-//                optionIndex = 0;
-//                optionLength = options.length;
-//
-//                if (i < options.length) {
-//                    mOptionTV[i].setText(options[i]);
-//                    mOptionLL[i].setVisibility(View.VISIBLE);
-//
-//                    if (state < Question.STATE2_ANSWERED) {
-//                        mOptionLL[i].setClickable(true);
-//                    } else {
-//                        mOptionLL[i].setClickable(false);
-//                    }
-//                } else {
-//                    //隐藏多余的
-//                    mOptionLL[i].setVisibility(View.GONE);
-//                }
-//            }
-//        }
-//
-//        //设置选项的选中状态
-//        String[] selected = curQuestion.getSelected();
-//        for (int i = 0; i < selected.length; i++) {
-//            if (!selected[i].isEmpty()) {
-//                mOptionLL[i].setSelected(true);
-//            } else {
-//                mOptionLL[i].setSelected(false);
-//            }
-//        }
-//
-//
-//        //如果不是考试模式并且已经做过，显示答案
-//        if (state >= Question.STATE2_ANSWERED) {
-//            optionsClickForbidden();
-//            showAnswer(curQuestion, true);
-//        } else {
-//            showAnswer(curQuestion, false);
-//        }
     }
 
     /**
@@ -728,9 +566,6 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
 
 
             case R.id.titleBarBack_iv:
-
-//                Intent intent = new Intent();
-//                intent.putExtra("result", "refresh");
 //
 //                ((ContentActivity) activityCtx).setResult(2, intent);
                 ((ContentActivity) activityCtx).finish();
@@ -751,8 +586,6 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
             ToastUtil.toastMsgShort("已到开头");
         } else {
             viewHolder.mViewPager.arrowScroll(1);
-//            curIndex1--;
-//            dealWithIndex(curIndex1);
         }
     }
 
@@ -771,39 +604,10 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
 
             viewHolder.mViewPager.arrowScroll(2);
 
-//            curIndex1++;
-//            dealWithIndex(curIndex1);
-
         }
     }
 
-    /**
-     * 选项处理
-     *
-     * @param view
-     */
-//    private void dealWithOptions(View view) {
-//
-//        switch (view.getId()) {
-//
-//            case R.id.ensureBtn_tv: //确定
-//
-//                if (curQuestion.selectedToString().length() == 0) {
-//                    Toast.makeText(activityCtx, "请选择", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                optionsClickForbidden(); //禁止点击
-//                curQuestion.setState(Question.STATE2_ANSWERED);
-//                checkAndShowAnswer(curQuestion, true);
-//
-//                break;
-//
-//            default:
-//
-//                dealWithSelection(view);
-//        }
-//    }
+
 
     /**
      * 选项处理，并保存
@@ -869,13 +673,13 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
                     .setPositiveButton("重新开始", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-//                                    FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-//                                    transaction.remove(StageContentFragment.this);
-//                                    transaction.add(R.id.container_fl,new StageContentFragment());
-//                                    transaction.commit();
-                                    getData();
-//                                    stageNavCardLvAdapter.notifyDataSetChanged();
-//                                    stageNavCardLvAdapter.stageNavCardGvAdapter.notifyDataSetChanged();
+                                    //关闭当前的Fragment，重新加载该Fragment
+                                    FragmentManager fragmentManager = getFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    Fragment fragment = fragmentManager.findFragmentByTag(Constant.FragTag.TEST_STAGE_CONTENT);
+                                    fragmentTransaction.remove(fragment);
+                                    fragmentTransaction.replace(R.id.container_fl, new StageContentFragment(),Constant.FragTag.TEST_STAGE_CONTENT);
+                                    fragmentTransaction.commit();
                                     dialog.cancel();
                                 }
                             }
@@ -1011,6 +815,9 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
            // RefreshHolder.TEST_STAGE_CONTENT = RefreshHolder.REFRESH_NET;
             getData();
         }
+        if(chapterID!=""){
+            SharePerferenceUtil.putString("chapterID",chapterID);
+        }
 
         super.onResume();
 
@@ -1021,7 +828,6 @@ public class StageContentFragment extends BaseFragment implements View.OnClickLi
     public void onPause() {
 
         saveStatusToDB();
-
         super.onPause();
     }
 

@@ -24,6 +24,7 @@ import com.hengdian.henghua.adapter.LeftItemAdapter;
 import com.hengdian.henghua.androidUtil.ActivityViewHolder;
 import com.hengdian.henghua.androidUtil.LOGTAG;
 import com.hengdian.henghua.androidUtil.LogUtil;
+import com.hengdian.henghua.androidUtil.MyApplication;
 import com.hengdian.henghua.androidUtil.ToastUtil;
 import com.hengdian.henghua.androidUtil.UIUtil;
 import com.hengdian.henghua.fragment.BackHandledFragment;
@@ -68,6 +69,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         }
 
         setContentView(R.layout.activity_main);
+//        MyApplication.getINSTANCE().addActivity(this);
         mApp.curActivityFlag = Constant.ViewFlag.MAIN_ACTIVITY;
         viewHolder = new ViewHolder(this, false);
 

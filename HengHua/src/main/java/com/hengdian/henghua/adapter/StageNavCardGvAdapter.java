@@ -121,9 +121,17 @@ public class StageNavCardGvAdapter extends BaseAdapter {
                         stageContentFrag.curIndex1 = i + stageContentFrag.sizeSingle + stageContentFrag.sizeMultiple;
                         break;
                 }
-                if (mQuestionList.get(i).getState() < Question.STATE2_ANSWERED && mQuestionList.get(i-1).getState()<Question.STATE2_ANSWERED) {
-                    ToastUtil.toastMsgShort("请先解答前面的试题");
+                Log.e("curIndex1",stageContentFrag.curIndex1+"");
+
+                if (i == 0 && mQuestionList.get(i).getState() < Question.STATE2_ANSWERED) {
+
+                    ToastUtil.toastMsgShort("请先解答当前题目！");
                     return;
+
+                }else if(i>0 && mQuestionList.get(i).getState() < Question.STATE2_ANSWERED && mQuestionList.get(i-1).getState() < Question.STATE2_ANSWERED){
+                    ToastUtil.toastMsgShort("请先解答当前题目！");
+                    return;
+
                 }else{
                     //设置答题卡 状态
                     stageContentFrag.showNavCard(false);
@@ -131,8 +139,6 @@ public class StageNavCardGvAdapter extends BaseAdapter {
                     stageContentFrag.viewHolder.centerButtonLL.setSelected(false);
                     stageContentFrag.dealWithIndex(stageContentFrag.curIndex1);
                 }
-
-
 
             }
         });

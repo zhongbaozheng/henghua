@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.hengdian.henghua.R;
 import com.hengdian.henghua.androidUtil.ActivityViewHolder;
 import com.hengdian.henghua.androidUtil.LogUtil;
+import com.hengdian.henghua.androidUtil.MyApplication;
 import com.hengdian.henghua.androidUtil.UIUtil;
 import com.hengdian.henghua.fragment.BackHandledFragment;
 import com.hengdian.henghua.fragment.ExamContentFragment;
@@ -87,6 +88,7 @@ public class ContentActivity extends FragmentActivity implements BackHandledFrag
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
+//        MyApplication.getINSTANCE().addActivity(this);
 
         viewHolder = new ViewHolder(this,false);
         ctx = getApplicationContext();

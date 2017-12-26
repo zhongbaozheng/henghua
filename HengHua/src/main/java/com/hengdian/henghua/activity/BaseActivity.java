@@ -21,6 +21,7 @@ public class BaseActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
 //        x.view().inject(this);
+//        mApp = MyApplication.getINSTANCE();
         mApp = (MyApplication) getApplication();
 
     }

@@ -1,5 +1,6 @@
 package com.hengdian.henghua.androidUtil;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
@@ -8,6 +9,9 @@ import android.support.v4.content.ContextCompat;
 import com.hengdian.henghua.model.AccountInfo;
 import com.hengdian.henghua.model.PwdUpdateInfo;
 import com.hengdian.henghua.utils.Constant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,6 +22,18 @@ public class MyApplication extends Application {
      * 全局上下文环境
      */
     private static Context mContext;
+
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    /**
+     * 管理所有Activity
+     */
+    public static List<Activity> activities = new ArrayList<>();
+
+    private static MyApplication INSTANCE;
 
     /**
      * App主线程
@@ -77,6 +93,34 @@ public class MyApplication extends Application {
      * 左侧菜单是否已经关闭
      */
     public static boolean isLeftMenuClosed = true;
+
+
+
+    /**
+     * 添加activity
+     * @param activity
+     */
+    public void addActivity(Activity activity){
+        if(activity!=null){
+            activities.add(activity);
+        }
+    }
+
+    /**
+     * 移除所有的Activity
+     */
+    public void removeAllActivity(){
+        if(activities.size()>0){
+           for(Activity activity:activities){
+               activity.finish();
+           }
+        }
+    }
+
+
+
+
+
 
 
     //在此处去构建开发过程中需要用到的常见对象,并且提供方法用于获取

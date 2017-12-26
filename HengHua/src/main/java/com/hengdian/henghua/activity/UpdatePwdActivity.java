@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.hengdian.henghua.R;
 import com.hengdian.henghua.androidUtil.ActivityViewHolder;
+import com.hengdian.henghua.androidUtil.MyApplication;
 import com.hengdian.henghua.androidUtil.ToastUtil;
 import com.hengdian.henghua.androidUtil.UIUtil;
 import com.hengdian.henghua.model.AccountInfo;
@@ -37,6 +38,7 @@ public class UpdatePwdActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        MyApplication.getINSTANCE().addActivity(this);
         mApp.curActivityFlag = Constant.ViewFlag.PWD_ACTIVITY;
 
         if (!mApp.isLogInSuccess) {
